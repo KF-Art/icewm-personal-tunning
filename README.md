@@ -4,6 +4,7 @@ Personal customization of IceWM on mainly, Void Linux.
 <H1>Overview</H1>
 IceWM is a lightweight window manager used on distributions like AntiX, but by default its very... W95-like. So I decided to customize at the maximum that I can. This is the result. 
 
+
 Keybindings are processed via <code>sxkhd</code> instead of IceWM built-in one (because I didn't realized that IceWM already has its own script to setup keybindings, but you are free to use it). IceWM's taskbar were replaced by xfce4-panel, but you can also use the IceWM's one. uLauncher is used as app launcher. Materia-Manjaro-Dark-B with some modifications is the selected WM theme. <code>lxappearance</code> and Qt5ct are used to customize desktop themes. I used Nemo as the default file manager, and Tilix is the selected terminal emulator (also I recommend QTerminal and <code>xfce4-terminal</code>).
 
 This guide is focused on Void Linux, and in the future, Artix. Feel free to add or remove everything as you need and/or want in your setup. This is just a guide.
@@ -164,6 +165,15 @@ Alternatively, you can set this variable into <code>/etc/environment</code> to s
 After that, open Qt5ct, set Kvantum style and configure fonts as you want (I recommend SF Pro Display Light 10).
 
 Download your prefered GTK and Kvantum themes and copy them to <code>/usr/share/themes</code> and <code>~/.config/Kvantum/</code>, respectively. In this setup, I will use StarLabs-Green (GTK) and KvFlatManjaro (Kvantum), but you can use any theme you want. Now open <code>lxappearance</code> & Kvantum, set themes and configure fonts (<code>lxappearance</code>).
+
+<H3>Install Reversal icon theme (optional)</H3>
+You can install any icon theme that you want. In this case, I will use Reversal icon theme:
+	
+	git clone https://github.com/yeyushengfan258/Reversal-icon-theme
+	cd Reversal-icon-theme
+	sudo ./install.sh -a
+	
+Now apply the icon theme at <code>lxappearance</code> and Qt5ct.
 
 <H3>Prepare Betterscreenlock</H3>
 Betterscreenlock needs your background to be cached before you can use it:
