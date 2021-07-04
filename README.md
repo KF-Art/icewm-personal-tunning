@@ -171,6 +171,10 @@ And convert them with XDEB (it only allows one operation per time, and that make
 Finally, you can install them:
 
 	sudo xbps-install --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1 xapps-common-2.0.7_1
+	
+If you want, delete the Gedit package (this is not included on automated script, because this is your decision):
+
+	sudo xbps-remove -R gedit
 
 <H2>Theming environment</H2>
 
@@ -251,6 +255,7 @@ Betterscreenlock needs your background to be cached before you can use it:
 	betterscreenlock -u -blur /path/to/your/wallpaper.png
 
 <H3>Customize XFCE panel</H3>
+
 I have leave the defaults in general. Delete the default start menu and add Whisker menu instead, change the icon to <code>void-distributor-logo</code> and change the label to "Void Linux". Lastly, add Power Manager and Clipman applets. 
 
 <b>DON'T RUN <code>xfce4-power-manager</code> DAEMON, IT WILL DISABLE <code>sxhkd</code> BRIGHTNESS KEYBINDINGS</b>.
