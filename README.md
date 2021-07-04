@@ -117,13 +117,22 @@ After that, logout. Related keybindings and startup commands now should work.
 
 <H2>Theming environment</H2>
 
-<H3>Install San Francisco Pro Fonts</H3>
+<H3>Install San Francisco Pro and JetBrains Mono fonts</H3>
 We need to clone the font repo, move fonts to <code>/usr/share/fonts/OTF</code>, and update fonts cache and list:
 
+	#San Francisco Fonts
 	git clone https://github.com/sahibjotsaggu/San-Francisco-Pro-Fonts
 	cd San-Francisco-Pro-Fonts
 	sudo mkdir /usr/share/fonts/OTF
 	sudo mv *.otf /usr/share/fonts/OTF
+	
+	#JetBrains Mono
+	mkdir JetBrains-Mono && cd JetBrains-Mono
+	wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.225/JetBrainsMono-2.225.zip
+	unzip JetBrainsMono-2.225.zip
+	sudo cp fonts /usr/share
+	
+	#Update font cache and list
 	fc-cache -fv; fc-list
 
 <H3>Install and customize Materia Manjaro Dark IceWM theme</H3>
@@ -143,3 +152,12 @@ Download <a href=https://www.box-look.org/p/1393603/>Materia Manjaro Dark B</a> 
 	#Desktop
 	DesktopBackgroundImage=                   "/path/to/your/wallpaper.png"
 	
+Feel free to edit all the theme as you want (for example, color scheme).
+
+<H3>Configure Qt5ct and set GTK & Kvantum themes</H3>
+In order to use Qt5ct and manage Qt settings, it's necesary to add a environment variable to your <code>.zshrc</code> or <code>.bashrc</code> at the end of the file:
+
+	QT_QPA_PLATFORMTHEME="qt5ct"
+	
+Alternatively, you can set this variable into <code>/etc/environment</code> to set it at system level. Logout to apply the changes. 
+After that, open Qt5ct, set Kvantum style and configure fonts as you want (I recommend SF Pro Display Light 10).
