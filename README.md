@@ -127,7 +127,21 @@ Now add this line at the end of the file (change <code>yourusername</code> for y
 After that, logout. Related keybindings and startup commands now should work.
 
 <H2>[WIP] Installing Xed text editor (optional)</H2>
-I think that is strange that the Cinnamon's text editor Xed is not in the repositories of Void, because Cinnamon is one of the officially supported desktop environments. We'll take the official's Linux Mint package, convert it to XBPS and install it. But first, we need to install XDEB script.
+I think that is strange that the Cinnamon's text editor Xed is not in the repositories of Void, because Cinnamon is one of the officially supported desktop environments. 
+
+<H3>Automated install (recommended)</H3>
+The installation of Xed via XDEB is quite tedious, so I created a script to automate the task. First, clone this repo (if not done already):
+	
+	git clone https://github.com/KF-Art/icewm-personal-tunning/
+	
+Now you can run the installation script:
+
+	cd icewm-personal-tunning/scripts/
+	chmod u+x xed_void_install.sh
+	./xed_void_install.sh
+	
+<H3>DIY Method</H3>
+We'll take the official's Linux Mint package, convert it to XBPS and install it. But first, we need to install XDEB script.
 
 	sudo xbps-install -S binutils tar curl xz
 	git clone https://github.com/toluschr/xdeb
@@ -135,12 +149,28 @@ I think that is strange that the Cinnamon's text editor Xed is not in the reposi
 	chmod 0744 xdeb
 	sudo cp xdeb /usr/local/bin
 	
-Once installed, we can proceed to package conversion. Keep in mind that some dependencies are still needed. Working on it.
+Once installed, we can proceed to package conversion. Install Xapps dependency from Void Linux's repository:
+
+	sudo xbps-install -Sfy xapps
+	
+Download DEB packages from official Linux Mint's repository:
 
 	mkdir xed && cd xed
 	wget http://packages.linuxmint.com/pool/backport/x/xed/xed_2.8.4+ulyssa_amd64.deb
+	wget http://packages.linuxmint.com/pool/backport/x/xed/xed-common_2.8.4+ulyssa_all.deb
+	wget http://packages.linuxmint.com/pool/backport/x/xapp/xapps-common_2.0.7+ulyssa_all.deb
+	wget http://packages.linuxmint.com/pool/backport/x/xed/xed-doc_2.8.4+ulyssa_all.deb
+	
+And convert them with XDEB:
+
 	xdeb -Sde xed_2.8.4+ulyssa_amd64.deb
-	sudo xbps-install -R binpkgs xed-2.8.4_1
+	xdeb -Sde xed-common_2.8.4+ulyssa_all.deb
+	xdeb -Sde xapps-common_2.0.7+ulyssa_all.deb
+	xdeb -Sde xed-doc_2.8.4+ulyssa_all.deb
+	
+Finally, you can install them:
+
+	sudo xbps-install --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1 xapps-common-2.0.7_1
 
 <H2>Theming environment</H2>
 
