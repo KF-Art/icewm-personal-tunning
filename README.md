@@ -11,6 +11,7 @@ Keybindings are processed via <code>sxhkd</code> instead of IceWM built-in one (
 This guide is focused on Void Linux, and in the future, Artix. Feel free to add or remove everything as you need and/or want in your setup. This is just a guide.}
 
 <H1>To Do</H1>
+
 - Get MATE Polkit agent to run at startup.
 - Get Nemo's "Run as root" context menu option to work properly.
 - Add dotfiles.
