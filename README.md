@@ -238,7 +238,14 @@ In order to use Qt5ct and manage Qt settings, it's necesary to add a environment
 Alternatively, you can set this variable into <code>/etc/environment</code> to set it at system level. Logout to apply the changes. 
 After that, open Qt5ct, set Kvantum style and configure fonts as you want (I recommend SF Pro Display Light 10).
 
-Download your prefered GTK and Kvantum themes and copy them to <code>/usr/share/themes</code> and <code>~/.config/Kvantum/</code>, respectively. In this setup, I will use StarLabs-Green (GTK) and KvFlatManjaro (Kvantum), but you can use any theme you want. Now open <code>lxappearance</code> & Kvantum, set themes and configure fonts (<code>lxappearance</code>).
+Download your preferred GTK and Kvantum themes and copy them to <code>/usr/share/themes</code> and <code>~/.config/Kvantum/</code>, respectively. In this setup, I will use StarLabs-Green (GTK) and KvFlat-Emerald (Kvantum), but you can use any theme you want. 
+
+	#KvFlat-Emerald installation
+	git clone https://github.com/KF-Art/KvFlat-Emerald/
+	cd KvFlat-Emerald
+	cp Solid/KvFlat-Emerald-Solid ~/.config/Kvantum
+
+Now open <code>lxappearance</code> & Kvantum, set themes and configure fonts (<code>lxappearance</code>).
 
 <H3>Install Reversal icon theme (optional)</H3>
 You can install any icon theme that you want. In this case, I will use Reversal icon theme:
