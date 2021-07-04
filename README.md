@@ -11,7 +11,7 @@ This guide is focused on Void Linux, and in the future, Artix. Feel free to add 
 <H1>Installing IceWM and initial tools</H1>
 At this point, I'm assuming that you already have your system and Xorg installed. These are just some initial tools, we will install the rest later.
 
-    sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin octoxbps notification-daemon playerctl numlockx zzz compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol
+    sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin octoxbps notification-daemon playerctl numlockx zzz compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git
    
 <H2>Configuring Autostart</H2>
 For some reason, IceWM ignores <code>~/.config/autostart</code> and <code>~/.config/autostart-scripts</code> configurations (at least on Void Linux). Fortunately, IceWM has its own built-in startup manager. We'll create a new file called <code>startup</code> inside <code>~/.icewm</code>.
@@ -116,4 +116,30 @@ Now add this line at the end of the file (change <code>yourusername</code> for y
 After that, logout. Related keybindings and startup commands now should work.
 
 <H2>Theming environment</H2>
-Download <a href=https://www.box-look.org/p/1393603/>Materia Manjaro Dark B</a> IceWM theme, and move it to <code>~/.icewm/themes/</code>. Now we have to edit theme file 
+
+<H3>Install San Francisco Pro Fonts</H3>
+We need to clone the font repo, move fonts to <code>/usr/share/fonts/OTF</code>, and update fonts cache and list:
+
+	git clone https://github.com/sahibjotsaggu/San-Francisco-Pro-Fonts
+	cd San-Francisco-Pro-Fonts
+	sudo mkdir /usr/share/fonts/OTF
+	sudo mv *.otf /usr/share/fonts/OTF
+	fc-cache -fv; fc-list
+
+<H3>Install and customize Materia Manjaro Dark IceWM theme</H3>
+Download <a href=https://www.box-look.org/p/1393603/>Materia Manjaro Dark B</a> IceWM theme, and move it to <code>~/.icewm/themes/</code>. Now we have to edit theme file (Srmx variant, in my case) to give it a custom fonts and wallpaper. Edit these lines like this:
+
+	#Fonts
+	TitleFontNameXft=                          "SF Pro Display:size=10"
+	StatusFontNameXft=                         "SF Pro Display:size=10"
+	MenuFontNameXft=                           "SF Pro Display:size=10"
+	NormalTaskBarFontNameXft=                  "SF Pro Display:size=10"
+	ActiveTaskBarFontNameXft=                  "SF Pro Display:size=10"
+	ListBoxFontNameXft=                        "SF Pro Display:size=10"
+	ToolTipFontNameXft=                        "SF Pro Display:size=10"
+	QuickSwitchFontNameXft=                    "SF Pro Display:size=10"
+	ClockFontNameXft=                          "SF Pro Display:size=10"
+
+	#Desktop
+	DesktopBackgroundImage=                   "/path/to/your/wallpaper.png"
+	
