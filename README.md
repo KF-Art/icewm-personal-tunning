@@ -13,7 +13,7 @@ This guide is focused on Void Linux, and in the future, Artix. Feel free to add 
 <H1>Installing IceWM and initial tools</H1>
 At this point, I'm assuming that you already have your system and Xorg installed. These are just some initial tools, we will install the rest later.
 
-    sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin octoxbps notification-daemon playerctl numlockx zzz compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git 
+    sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin octoxbps notification-daemon playerctl numlockx zzz compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget
    
 <H2>Configuring Autostart</H2>
 For some reason, IceWM ignores <code>~/.config/autostart</code> and <code>~/.config/autostart-scripts</code> configurations (at least on Void Linux). Fortunately, IceWM has its own built-in startup manager. We'll create a new file called <code>startup</code> inside <code>~/.icewm</code>.
@@ -184,4 +184,20 @@ Betterscreenlock needs your background to be cached before you can use it:
 	betterscreenlock -u -blur /path/to/your/wallpaper.png
 
 <H3>Customize XFCE panel</H3>
-I have leave the defaults in general. Delete the default start menu and add Whisker menu instead, change the icon to <code>void-distributor-logo</code> and change the label to "Void Linux". Lastly, add Power Manager and Clipman applets. <b>DON'T RUN <code>xfce4-power-manager</code> DAEMON, IT WILL DISABLE <code>sxhkd</code> BRIGHTNESS KEYBINDINGS</b>.
+I have leave the defaults in general. Delete the default start menu and add Whisker menu instead, change the icon to <code>void-distributor-logo</code> and change the label to "Void Linux". Lastly, add Power Manager and Clipman applets. 
+
+<b>DON'T RUN <code>xfce4-power-manager</code> DAEMON, IT WILL DISABLE <code>sxhkd</code> BRIGHTNESS KEYBINDINGS</b>.
+
+<H3>Install Oh My ZSH or Oh My Bash (optional)</H3>
+We will install one of these two and apply the Powerlevel9k (They say that Powerlevel10k is better, but I didn't configured it yet) and Agnoster themes, respectively.
+	
+	#Clone this repo in order to get dotfiles.
+	git clone https://github.com/KF-Art/icewm-personal-tunning/
+	
+	#ZSH
+	sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+	cp icewm-personal-icewm/dotfiles/shellrc/.zshrc
+	
+	#BASH
+	sh -c "$(wget https://raw.github.com/ohmybash/oh-my-bash/master/tools/install.sh -O -)"
+	cp icewm-personal-icewm/dotfiles/shellrc/.bashrc
