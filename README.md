@@ -161,7 +161,7 @@ Download DEB packages from official Linux Mint's repository:
 	wget http://packages.linuxmint.com/pool/backport/x/xapp/xapps-common_2.0.7+ulyssa_all.deb
 	wget http://packages.linuxmint.com/pool/backport/x/xed/xed-doc_2.8.4+ulyssa_all.deb
 	
-And convert them with XDEB:
+And convert them with XDEB (it only allows one operation per time, and that make the process quite tedious):
 
 	xdeb -Sde xed_2.8.4+ulyssa_amd64.deb
 	xdeb -Sde xed-common_2.8.4+ulyssa_all.deb
