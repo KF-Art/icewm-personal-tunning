@@ -2,7 +2,9 @@
 Personal customization of IceWM on mainly, Void Linux.
 
 <H1>Overview</H1>
-IceWM is a lightweight window manager used on distributions like AntiX, but by default its very... W95-like. So I decided to customize at the maximum that I can. This is the result. Keybindings are processed via <code>sxkhd</code> instead of IceWM built-in one (because I didn't realized that IceWM already has its own script to setup keybindings, but you are free to use it). IceWM's taskbar were replaced by xfce4-panel, but you can also use the IceWM's one. uLauncher is used as app launcher. Materia-Manjaro-Dark-B with some modifications is the selected WM theme. <code>lxappearance</code> and Qt5ct are used to customize desktop themes. I used Nemo as the default file manager, and Tilix is the selected terminal emulator (also I reccomend QTerminal and <code>xfce4-terminal</code>).
+IceWM is a lightweight window manager used on distributions like AntiX, but by default its very... W95-like. So I decided to customize at the maximum that I can. This is the result. 
+
+Keybindings are processed via <code>sxkhd</code> instead of IceWM built-in one (because I didn't realized that IceWM already has its own script to setup keybindings, but you are free to use it). IceWM's taskbar were replaced by xfce4-panel, but you can also use the IceWM's one. uLauncher is used as app launcher. Materia-Manjaro-Dark-B with some modifications is the selected WM theme. <code>lxappearance</code> and Qt5ct are used to customize desktop themes. I used Nemo as the default file manager, and Tilix is the selected terminal emulator (also I recommend QTerminal and <code>xfce4-terminal</code>).
 
 This guide is focused on Void Linux, and in the future, Artix. Feel free to add or remove everything as you need and/or want in your setup. This is just a guide.
 
@@ -36,6 +38,8 @@ Once created, we'll setup autostart commands and applications (yeah, I used <cod
     xautolock -detectsleep -time 5 -locker "betterlockscreen -l blur -w /path/to/your/wallpaper.png" -killtime 10 -killer "sudo zzz -z"
     blueman-applet &!
     
+Change <code>/path/to/your/wallpaper.png</code> by the path of your desired background for lockscreen.
+
 Probably, you realized that <code>xautolock</code> uses <code>sudo zzz -z</code> to suspend the system. Don't worry, we'll add an exception to <code>sudoers</code> to be able to do that.
 
 <H2>Configuring Keybindings</H2>
@@ -97,5 +101,19 @@ And now setup the preferences:
     TerminalCommand=tilix
     SuspendCommand="zzz -z"
     
-Shutdown and Reboot command are not working yet, because by default are configured to work with SystemD. Working on it. 
+Shutdown and Reboot commands are not working yet, because by default are configured to work with SystemD; working on it. 
 If you don't want to use XFCE's panel, set <code>ShowTaskBar</code> on <code>1</code>, and remove it from autostart.
+
+<H2>Add sudo exceptions</H2>
+<code>brillo</code> and <code>zzz</code> requires root privileges in order to edit the brightness and power status. To be able to use the related keybindings and startup commands, we have to add two exceptions to <code>sudoers</code> file. 
+
+	sudo visudo
+
+Now add this line at the end of the file (change <code>yourusername</code> for your user's name):
+	
+	yourusername ALL= NOPASSWD: /usr/bin/zzz /usr/bin/brillo
+	
+After that, logout. Related keybindings and startup commands now should work.
+
+<H2>Theming environment</H2>
+Download <a href=https://www.box-look.org/p/1393603/ 'Materia Manjaro Dark B'> IceWM theme.
