@@ -127,7 +127,7 @@ We need to clone the font repo, move fonts to <code>/usr/share/fonts/OTF</code>,
 	fc-cache -fv; fc-list
 
 <H3>Install and customize Materia Manjaro Dark IceWM theme</H3>
-Download <a href=https://www.box-look.org/p/1393603/>Materia Manjaro Dark B</a> IceWM theme, and move it to <code>~/.icewm/themes/</code>. Now we have to edit theme file (Srmx variant, in my case) to give it a custom fonts and wallpaper. Edit these lines like this:
+Download <a href=https://www.box-look.org/p/1393603/>Materia Manjaro Dark B</a> IceWM theme, and move it to <code>~/.icewm/themes/</code>. Now we have to edit theme file, specifically Srmx (<code>~/.icewm/themes/Materia-Manjaro-Dark-B/Srmx.theme</code>) to give it a custom fonts and wallpaper. Edit these lines like this:
 
 	#Fonts
 	TitleFontNameXft=                          "SF Pro Display:size=10"
