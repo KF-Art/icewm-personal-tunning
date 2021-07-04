@@ -125,6 +125,7 @@ We need to clone the font repo, move fonts to <code>/usr/share/fonts/OTF</code>,
 	cd San-Francisco-Pro-Fonts
 	sudo mkdir /usr/share/fonts/OTF
 	sudo mv *.otf /usr/share/fonts/OTF
+	cd ..
 	
 	#JetBrains Mono
 	mkdir JetBrains-Mono && cd JetBrains-Mono
@@ -160,4 +161,6 @@ In order to use Qt5ct and manage Qt settings, it's necesary to add a environment
 	QT_QPA_PLATFORMTHEME="qt5ct"
 	
 Alternatively, you can set this variable into <code>/etc/environment</code> to set it at system level. Logout to apply the changes. 
-After that, open Qt5ct, set Kvantum style and configure fonts as you want (I recommend SF Pro Display Light 10).
+After that, open Qt5ct, set Kvantum style and configure fonts as you want (I recommend SF Pro Display Light 10)
+
+Download your prefered GTK and Kvantum themes and copy them to <code>/usr/share/themes</code> and <code>~/.config/Kvantum/</code>, respectively. In this setup, I will use StarLabs-Green (GTK) and KvFlatManjaro (Kvantum), but you can use any theme you want. Now open <code>lxappearance</code> & Kvantum, set themes and configure fonts (<code>lxappearance</code>).
