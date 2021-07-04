@@ -247,8 +247,8 @@ Download your preferred GTK and Kvantum themes and copy them to <code>/usr/share
 
 Now open <code>lxappearance</code> & Kvantum, set themes and configure fonts (<code>lxappearance</code>).
 
-<H3>Install Reversal icon theme (optional)</H3>
-You can install any icon theme that you want. In this case, I will use Reversal icon theme:
+<H3>Install Reversal icon theme</H3>
+You can install any icon theme that you want, as long it includes a <code>void-distributor-logo</code> icon. In this case, I will use Reversal icon theme:
 	
 	git clone https://github.com/yeyushengfan258/Reversal-icon-theme
 	cd Reversal-icon-theme
