@@ -103,7 +103,7 @@ And now setup the preferences:
     RebootCommand="loginctl reboot"
     ShutdownCommand="loginctl poweroff"
     TerminalCommand=tilix
-    SuspendCommand="zzz -z"
+    SuspendCommand="sudo zzz -z"
     
 Shutdown and Reboot commands are not working yet, because by default are configured to work with SystemD; working on it. 
 If you don't want to use XFCE's panel, set <code>ShowTaskBar</code> on <code>1</code>, and remove it from autostart.
