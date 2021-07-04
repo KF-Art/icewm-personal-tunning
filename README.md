@@ -116,4 +116,4 @@ Now add this line at the end of the file (change <code>yourusername</code> for y
 After that, logout. Related keybindings and startup commands now should work.
 
 <H2>Theming environment</H2>
-Download <a href=https://www.box-look.org/p/1393603/ 'Materia Manjaro Dark B'> IceWM theme.
+Download <a href=https://www.box-look.org/p/1393603/>Materia Manjaro Dark B</a> IceWM theme, and move it to <code>~/.icewm/themes/</code>. Now we have to edit theme file 
