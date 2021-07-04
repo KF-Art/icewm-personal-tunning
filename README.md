@@ -6,4 +6,5 @@ IceWM is a lightweight window manager used on distributions like AntiX, but by d
 
 <H1>Installing IceWM and initial tools</H1>
 At this point, I'm assuming that you already have your system and Xorg installed.
-     sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin octoxbps
+
+    sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin octoxbps
