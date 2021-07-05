@@ -1,0 +1,35 @@
+#Media buttons
+XF86Audio{Prev,Next,Play,Pause}
+    playerctl {previous,next,play-pause,play-pause}
+
+#Volume Control
+XF86Audio{RaiseVolume,LowerVolume}
+    pactl -- set-sink-volume 0 {+5%,-5%}
+
+#Mute button
+XF86AudioMute
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+#Brightness control
+XF86MonBrightness{Down,Up}
+    sudo brillo {-U 20,-A 20}
+
+#Terminal emulator
+ctrl + alt + t
+    tilix %u
+
+#File manager
+ctrl + alt + e
+    nemo
+
+#Web browser
+ctrl + alt + w
+    firefox
+
+#Music player
+ctrl + alt + q
+    clementine
+
+#Lockscreen
+ctrl + alt + l
+    betterlockscreen -l blur -w /path/to/your/wallpaper.png
