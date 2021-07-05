@@ -3,4 +3,4 @@ ShowTaskBar=0
 RebootCommand="loginctl reboot"
 ShutdownCommand="loginctl poweroff"
 TerminalCommand=tilix
-SuspendCommand="sudo zzz -z"
+SuspendCommand="zzz -z"
