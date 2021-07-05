@@ -16,7 +16,6 @@ This guide is focused on Void Linux, and in the future, Artix. Feel free to add 
 
 - Make MATE Polkit agent to run at startup.
 - Make Nemo's "Run as root" context menu option to work properly.
-- Make Xed to work properly (compile schemas).
 - Make the script detect existing files and folders.
 - Correct some guide content.
 - Add XFCE's panel configuration files.
@@ -42,9 +41,18 @@ Here, you will learn how to configure IceWM and tune it. Also, this is a explana
 <H1>Installing IceWM and base packages</H1>
 At this point, I'm assuming that you already have your base system and Xorg installed. These packages are all the base to get all explained in this guide to work properly.
 
-    sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus zzz-user-hooks
+    sudo xbps-install -S icewm ulauncher network-manager-applet tilix pa-applet brillo nemo qt5ct zsh kvantum unzip zip tar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus zzz-user-hooks
     
-Now you can start your X session with <code>startx</code>.
+<H2>Enabling services</H2>
+Once installed, we have to enable service in order to have an X session, connectivity and Cron management:
+
+	sudo ln -s /etc/sv/bluetoothd /var/service
+	sudo ln -s /etc/sv/NetworkManager /var/service
+	sudo ln -s /etc/sv/udevd /var/service
+	sudo ln -s /etc/sv/dbus /var/service
+	sudo ln -s /etc/sv/crond /var/service
+    
+From this point you can start your X session with <code>startx</code>.
    
 <H2>Configuring Autostart</H2>
 For some reason, IceWM ignores <code>~/.config/autostart</code> and <code>~/.config/autostart-scripts</code> configurations (at least on Void Linux). Fortunately, IceWM has its own built-in startup manager. We'll create a new file called <code>startup</code> inside <code>~/.icewm</code>.
@@ -71,7 +79,7 @@ Once created, we'll setup autostart commands and applications (yeah, I used <cod
     xautolock -detectsleep -time 5 -locker "betterlockscreen -l blur -w /path/to/your/wallpaper.png" -killtime 10 -killer "zzz -z"
     blueman-applet &!
     
-Change <code>/path/to/your/wallpaper.png</code> by the path of your desired background for lockscreen.
+Change <code>/path/to/your/wallpaper.png</code> by the path of your desired background for lockscreen. In this build, a wallpaper is included into resources folder.
 
 Feel free to increase or decrease the <code>-killtime</code> (10 is the minimum) and <code>-time</code> amount.
 
@@ -147,10 +155,16 @@ Now add this line at the end of the file (change <code>yourusername</code> for y
 	
 	yourusername ALL= NOPASSWD: /usr/bin/brillo
 	
+Alternatively, you can use the automated script method. Create a group and make an exception to <code>sudoers</code>.
+
+	sudo groupadd brillo
+	sudo usermod -aG brillo $USER
+	echo '%brillo ALL=(ALL) NOPASSWD: /usr/bin/brillo /usr/bin/zzz' | sudo 	EDITOR='tee -a' visudo
+	
 After that, logout. Related keybindings and startup commands now should work.
 
-<H2>[WIP] Installing Xed text editor (optional)</H2>
-I think that is strange that the Cinnamon's text editor Xed is not in the repositories of Void, because Cinnamon is one of the officially supported desktop environments. 
+<H2>Installing Xed text editor (Void only)</H2>
+Xed is my favorite GTK text editor, so I included it into this build. I think that is strange that the Cinnamon's text editor Xed is not in the repositories of Void, because Cinnamon is one of the officially supported desktop environments. 
 
 <H3>Automated install (recommended)</H3>
 The installation of Xed via XDEB is quite tedious, so I created a script to automate the task. First, clone this repo (if not done already):
@@ -164,7 +178,7 @@ Now you can run the installation script:
 	./xed_void_install.sh
 	
 <H3>DIY Method</H3>
-We'll take the official's Linux Mint package, convert it to XBPS and install it. But first, we need to install XDEB script.
+We'll take the official's Linux Mint package, convert it to XBPS and install it. But first, we need to install XDEB script (into automated script, the selected path is <code>~/.local/share/bin</code> to avoid errors.
 
 	sudo xbps-install -S binutils tar curl xz
 	git clone https://github.com/toluschr/xdeb
@@ -174,7 +188,7 @@ We'll take the official's Linux Mint package, convert it to XBPS and install it.
 	
 Once installed, we can proceed to package conversion. Install Xapps dependency from Void Linux's repository:
 
-	sudo xbps-install -Sfy xapps
+	sudo xbps-install -S xapps
 	
 Download DEB packages from official Linux Mint's repository:
 
@@ -195,7 +209,7 @@ Finally, you can install them:
 
 	sudo xbps-install --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1 xapps-common-2.0.7_1
 	
-If you want, delete the Gedit package (this is not included on automated script, because this is your decision):
+If you want, delete the Gedit package. The automated script doesn't remove Gedit, in case Xed fails in the future.
 
 	sudo xbps-remove -R gedit
 
@@ -266,7 +280,7 @@ Download your preferred GTK and Kvantum themes and copy them to <code>/usr/share
 	#KvFlat-Emerald installation
 	git clone https://github.com/KF-Art/KvFlat-Emerald/
 	cd KvFlat-Emerald
-	cp Solid/KvFlat-Emerald-Solid ~/.config/Kvantum
+	cp KvFlat-Emerald-Solid ~/.config/Kvantum
 
 Now open <code>lxappearance</code> & Kvantum, set themes and configure fonts (<code>lxappearance</code>).
 
