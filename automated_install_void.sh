@@ -47,13 +47,15 @@ cd install
 git clone https://github.com/toluschr/xdeb
 cd xdeb
 chmod 0744 xdeb
+chmod u+x xdeb
+sudo rm /usr/local/bin/xdeb # delete it if already exists to avoid errors.
 sudo cp xdeb /usr/local/bin
 cd ../..
 
 echo "Installing Xed dependencies..."
 echo ""
 # Install repo dependencies.
-sudo xbps-install -Sfy xapps
+sudo xbps-install -Sy xapps
 
 echo "Downloading Xed text editor..."
 # Download DEB packages from Linux Mint's repository.
@@ -75,7 +77,7 @@ xdeb -Sde xed-doc_2.8.4+ulyssa_all.deb
 # Install converted packages.
 
 echo "Installing Xed text editor..."
-sudo xbps-install -yf --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1 xapps-common-2.0.7_1
+sudo xbps-install -y --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1 xapps-common-2.0.7_1
 cd ../..
 
 echo "Installing Oh My ZSH..."
