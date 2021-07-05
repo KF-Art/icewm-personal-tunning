@@ -42,7 +42,10 @@ cp -r dotfiles/sxhkd/ ~/.config
 echo "Installing Oh My ZSH..."
 echo ""
 cd install
+mkdir .oh-my-zsh
+cd .oh-my-zsh
 tar -xvf ../resources/oh-my-zsh.tar.gz
+cd ..
 cp -r .oh-my-zsh ~/
 cp ../dotfiles/shellrc/.zshrc ~/
 cd ..
