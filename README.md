@@ -6,7 +6,9 @@ Personal customization of IceWM on mainly, Void Linux.
 IceWM is a lightweight window manager used on distributions like AntiX, but by default its very... W95-like. So I decided to customize at the maximum that I can. This is the result. 
 
 
-Keybindings are processed via <code>sxhkd</code> instead of IceWM built-in one (because I didn't realized that IceWM already has its own script to setup keybindings, but you are free to use it). IceWM's taskbar were replaced by xfce4-panel, but you can also use the IceWM's one. uLauncher is used as app launcher. Materia-Manjaro-Dark-B with some modifications is the selected WM theme. <code>lxappearance</code> and Qt5ct are used to customize desktop themes. I used Nemo as the default file manager, and Tilix is the selected terminal emulator (also I recommend QTerminal and <code>xfce4-terminal</code>).
+Keybindings are processed via <code>sxhkd</code> instead of IceWM built-in one (because I didn't realized that IceWM already has its own script to setup keybindings, but you are free to use it). IceWM's taskbar were replaced by xfce4-panel, but you can also use the IceWM's one. uLauncher is used as app launcher. Materia-Manjaro-Dark-B with some modifications is the selected WM theme. <code>lxappearance</code> and Qt5ct are used to customize desktop themes. 
+
+I used Nemo as the default file manager, and Tilix is the selected terminal emulator (also I recommend QTerminal and <code>xfce4-terminal</code>). Here we'll use <code>xinit</code> to access to X session, but you are free to install any display manager of your choice (like LXDM).
 
 This guide is focused on Void Linux, and in the future, Artix. Feel free to add or remove everything as you need and/or want in your setup. This is just a guide.}
 
@@ -14,7 +16,7 @@ This guide is focused on Void Linux, and in the future, Artix. Feel free to add 
 
 - Get MATE Polkit agent to run at startup.
 - Get Nemo's "Run as root" context menu option to work properly.
-- Create automated installation script.
+- Polish automated installation script.
 
 <H1>Automated Install (WIP)</H1>
 There is a script that will install and configure everything what I explain in this guide. Note that is still in progress.
@@ -25,7 +27,7 @@ There is a script that will install and configure everything what I explain in t
 	chmod u+x automated_install_void.sh
 	./automated_install_void.sh
 	
-<code>sudoers</code> editing is not implemented yet; I'm researching about it. Meanwhile, you will need to do it <a href="https://github.com/KF-Art/icewm-personal-tunning/tree/main#add-sudo-exceptions">manually</a>.
+<code>sudoers</code> editing is not implemented yet; I'm researching about it. Meanwhile, you will need to do it <a href="https://github.com/KF-Art/icewm-personal-tunning/tree/main#add-sudo-exceptions">manually</a>. After that, you can start your X session with <code>startx</code>.
 
 <H1>DIY Method</H1>
 Here, you will learn how to configure IceWM and tune it. Also, this is a explanation of the automated script's functioning.
@@ -33,7 +35,9 @@ Here, you will learn how to configure IceWM and tune it. Also, this is a explana
 <H1>Installing IceWM and initial tools</H1>
 At this point, I'm assuming that you already have your system and Xorg installed. These are just some initial tools, we will install the rest later.
 
-    sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx zzz compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit dbus
+    sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx zzz compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus
+    
+Now you can start your X session with <code>startx</code>.
    
 <H2>Configuring Autostart</H2>
 For some reason, IceWM ignores <code>~/.config/autostart</code> and <code>~/.config/autostart-scripts</code> configurations (at least on Void Linux). Fortunately, IceWM has its own built-in startup manager. We'll create a new file called <code>startup</code> inside <code>~/.icewm</code>.
