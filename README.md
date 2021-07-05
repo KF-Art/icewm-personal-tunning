@@ -39,8 +39,8 @@ After that, you can start your X session with <code>startx</code>.
 <H1>DIY Method</H1>
 Here, you will learn how to configure IceWM and tune it. Also, this is a explanation of the automated script's functioning.
 
-<H1>Installing IceWM and initial tools</H1>
-At this point, I'm assuming that you already have your system and Xorg installed. These are just some initial tools, we will install the rest later.
+<H1>Installing IceWM and base packages</H1>
+At this point, I'm assuming that you already have your base system and Xorg installed. These packages are all the base to get all explained in this guide to work properly.
 
     sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus zzz-user-hooks
     
