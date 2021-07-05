@@ -42,7 +42,7 @@ echo "Installing XDEB script"
 echo ""
 
 # XDEB installation.
-sudo xbps-install -S binutils tar curl xz
+sudo xbps-install -Sy binutils tar curl xz
 cd install
 git clone https://github.com/toluschr/xdeb
 cd xdeb
