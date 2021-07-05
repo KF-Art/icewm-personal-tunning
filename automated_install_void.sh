@@ -59,9 +59,9 @@ sudo xbps-install -Sy binutils tar curl xz
 cd install
 git clone https://github.com/toluschr/xdeb
 cd xdeb
-chmod 0744 xdeb
 chmod u+x xdeb
-sudo cp xdeb ~/.local/share/bin
+mkdir ~/.local/share/bin
+sudo cp xdeb ~/.local/share/bin/
 cd ../..
 
 echo "Installing Xed dependencies..."
