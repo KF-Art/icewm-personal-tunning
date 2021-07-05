@@ -10,14 +10,19 @@ Keybindings are processed via <code>sxhkd</code> instead of IceWM built-in one (
 
 I used Nemo as the default file manager, and Tilix is the selected terminal emulator (also I recommend QTerminal and <code>xfce4-terminal</code>). Here we'll use <code>xinit</code> to access to X session, but you are free to install any display manager of your choice (like LXDM).
 
-This guide is focused on Void Linux, and in the future, Artix. Feel free to add or remove everything as you need and/or want in your setup. This is just a guide.}
+This guide is focused on Void Linux, and in the future, Artix. Feel free to add or remove everything as you need and/or want in your setup. This is just a guide.
 
 <H1>To Do</H1>
 
-- Get MATE Polkit agent to run at startup.
-- Get Nemo's "Run as root" context menu option to work properly.
-- Add Tilix's dotfiles.
-- Add <code>.xinitrc</code> dotfile.
+- Make MATE Polkit agent to run at startup.
+- Make Nemo's "Run as root" context menu option to work properly.
+- Make Xed to work properly (compile schemas).
+- Make the script detect existing files and folders.
+- Correct some guide content.
+- Add XFCE's panel configuration files.
+- Make automated script to detect signature error on package download and then, abort the installation.
+- Add Artix guide and automated script.
+- Create Musl, Lightweight (Void and Artix) and Lightweight-Musl branches.
 - Polish automated installation script.
 
 <H1>Automated Install (WIP)</H1>
@@ -29,7 +34,7 @@ There is a script that will install and configure everything what I explain in t
 	chmod u+x automated_install_void.sh
 	./automated_install_void.sh
 	
-<code>sudoers</code> editing is not implemented yet; I'm researching about it. Meanwhile, you will need to do it <a href="https://github.com/KF-Art/icewm-personal-tunning/tree/main#add-sudo-exceptions">manually</a>. After that, you can start your X session with <code>startx</code>.
+After that, you can start your X session with <code>startx</code>.
 
 <H1>DIY Method</H1>
 Here, you will learn how to configure IceWM and tune it. Also, this is a explanation of the automated script's functioning.
@@ -127,9 +132,10 @@ And now setup the preferences:
     RebootCommand="loginctl reboot"
     ShutdownCommand="loginctl poweroff"
     TerminalCommand=tilix
-    SuspendCommand="zzz -z"
-    
-Shutdown and Reboot commands are not working yet, because by default are configured to work with SystemD; working on it. 
+    SuspendCommand="sudo zzz -z"
+
+<code>zzz</code> also needs elevated privileges to be able to change the power status, and we'll add an exception to <code>sudoers</code> for it. There's a package called <code>zzz-user-hooks</code>, but I didn't achieve to make it work.  
+
 If you don't want to use XFCE's panel, set <code>ShowTaskBar</code> on <code>1</code>, and remove it from autostart.
 
 <H2>Add sudo exceptions</H2>
@@ -163,7 +169,7 @@ We'll take the official's Linux Mint package, convert it to XBPS and install it.
 	sudo xbps-install -S binutils tar curl xz
 	git clone https://github.com/toluschr/xdeb
 	cd xdeb
-	chmod 0744 xdeb
+	chmod u+x xdeb
 	sudo cp xdeb /usr/local/bin
 	
 Once installed, we can proceed to package conversion. Install Xapps dependency from Void Linux's repository:
