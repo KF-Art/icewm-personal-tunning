@@ -14,7 +14,6 @@ This guide is focused on Void Linux, and in the future, Artix. Feel free to add 
 
 - Get MATE Polkit agent to run at startup.
 - Get Nemo's "Run as root" context menu option to work properly.
-- Add dotfiles.
 - Create automated installation script.
 
 <H1>Automated Install (WIP)</H1>
@@ -28,10 +27,13 @@ There is a script that will install and configure everything what I explain in t
 	
 <code>sudoers</code> editing is not implemented yet; I'm researching about it. Meanwhile, you will need to do it <a href="https://github.com/KF-Art/icewm-personal-tunning/tree/main#add-sudo-exceptions">manually</a>.
 
+<H1>DIY Method</H1>
+Here, you will learn how to configure IceWM and tune it. Also, this is a explanation of the automated script's functioning.
+
 <H1>Installing IceWM and initial tools</H1>
 At this point, I'm assuming that you already have your system and Xorg installed. These are just some initial tools, we will install the rest later.
 
-    sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx zzz compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit
+    sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx zzz compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit dbus
    
 <H2>Configuring Autostart</H2>
 For some reason, IceWM ignores <code>~/.config/autostart</code> and <code>~/.config/autostart-scripts</code> configurations (at least on Void Linux). Fortunately, IceWM has its own built-in startup manager. We'll create a new file called <code>startup</code> inside <code>~/.icewm</code>.
