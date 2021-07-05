@@ -3,6 +3,4 @@ ShowTaskBar=0
 RebootCommand="loginctl reboot"
 ShutdownCommand="loginctl poweroff"
 TerminalCommand=tilix
-
-#  Command to send the system to standby mode.
 SuspendCommand="sudo zzz -z"
