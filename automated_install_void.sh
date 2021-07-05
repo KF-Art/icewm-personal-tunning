@@ -159,6 +159,9 @@ echo "Copying XFCE's panel configurations..."
 echo ""
 cp -r dotfiles/xfce4 ~/.config/
 
+echo "Configuring Tilix..."
+dconf load /com/gexperts/Tilix/ < resources/tilixrc
+
 echo "Deleting install files to save space..."
 echo ""
 rm -rf install
