@@ -133,7 +133,7 @@ ColorScrollBarButtonArrow=                 "rgb:F8/F9/FA"
 ColorScrollBarInactiveArrow=               "rgb:F8/F9/FA"
 
 #Desktop
-DesktopBackgroundImage=                   "/media/DATOS/Imágenes/Wallpapers/pexels-eberhard-grossgasteiger-640781.jpg"
+DesktopBackgroundImage=                   "~/.config/betterlockscreen/pexels-eberhard-grossgasteiger-640781.jpg"
 DesktopBackgroundScaled=                   1
 DesktopBackgroundColor=                    "rgb:64/64/64"
 DesktopTransparencyColor=                  "rgb:64/64/64"
