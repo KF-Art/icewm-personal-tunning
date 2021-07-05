@@ -11,5 +11,5 @@ xfce4-panel &
 nemo-desktop &
 ulauncher &
 /usr/libexec/notification-daemon &
-xautolock -detectsleep -time 5 -locker "betterlockscreen -l blur -w /path/to/your/wallpaper.png" -killtime 10 -killer "zzz -z"
+xautolock -detectsleep -time 5 -locker "betterlockscreen -l blur -w ~/.config/betterlockscreen/pexels-eberhard-grossgasteiger-640781" -killtime 10 -killer "zzz -z"
 blueman-applet &!
