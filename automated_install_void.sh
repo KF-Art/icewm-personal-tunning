@@ -9,7 +9,23 @@ echo "Enjoy!"
 echo ""
 echo "Installing IceWM and initial tools..."
 
-sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx zzz compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit
+sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx zzz compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus
+
+echo "Enabling services..."
+
+#If are already enabled, delete them to avoid conflicts.
+sudo rm /var/service/bluetoothd
+sudo rm /var/service/NetworkManager
+sudo rm /var/service/udevd
+sudo rm /var/service/dbus
+sudo rm /var/service/crond
+
+#Enable services.
+sudo ln -s /etc/sv/bluetoothd /var/service
+sudo ln -s /etc/sv/NetworkManager /var/service
+sudo ln -s /etc/sv/udevd /var/service
+sudo ln -s /etc/sv/dbus /var/service
+sudo ln -s /etc/sv/crond /var/service
 
 mkdir install
 
