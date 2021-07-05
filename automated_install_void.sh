@@ -81,10 +81,10 @@ wget http://packages.linuxmint.com/pool/backport/x/xed/xed-doc_2.8.4+ulyssa_all.
 
 echo "Converting Xed packages with XDEB..."
 echo ""
-~/.local/share/bin/xdeb -Sde xed_2.8.4+ulyssa_amd64.deb
-~/.local/share/bin/xdeb -Sde xed-common_2.8.4+ulyssa_all.deb
-~/.local/share/bin/xdeb -Sde xapps-common_2.0.7+ulyssa_all.deb
-~/.local/share/bin/xdeb -Sde xed-doc_2.8.4+ulyssa_all.deb
+/home/$USER/.local/share/bin/xdeb -Sde xed_2.8.4+ulyssa_amd64.deb
+/home/$USER/.local/share/bin/xdeb -Sde xed-common_2.8.4+ulyssa_all.deb
+/home/$USER/.local/share/bin/xdeb -Sde xapps-common_2.0.7+ulyssa_all.deb
+/home/$USER/.local/share/bin/xdeb -Sde xed-doc_2.8.4+ulyssa_all.deb
 # Install converted packages.
 
 echo "Installing Xed text editor..."
