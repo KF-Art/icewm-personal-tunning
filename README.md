@@ -256,10 +256,10 @@ You can install any icon theme that you want, as long it includes a <code>void-d
 	
 Now apply the icon theme at <code>lxappearance</code> and Qt5ct.
 
-<H3>Prepare Betterscreenlock</H3>
-Betterscreenlock needs your background to be cached before you can use it:
+<H3>Prepare Betterlockscreen</H3>
+Betterlockscreen needs your background to be cached before you can use it:
 
-	betterscreenlock -u -blur /path/to/your/wallpaper.png
+	betterlockscreen -u -blur /path/to/your/wallpaper.png
 
 <H3>Customize XFCE panel</H3>
 
