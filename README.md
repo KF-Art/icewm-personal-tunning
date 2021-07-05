@@ -16,6 +16,8 @@ This guide is focused on Void Linux, and in the future, Artix. Feel free to add 
 
 - Get MATE Polkit agent to run at startup.
 - Get Nemo's "Run as root" context menu option to work properly.
+- Add Tilix's dotfiles.
+- Add <code>.xinitrc</code> dotfile.
 - Polish automated installation script.
 
 <H1>Automated Install (WIP)</H1>
