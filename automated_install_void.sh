@@ -47,7 +47,7 @@ cd .oh-my-zsh
 tar -xvf ../resources/oh-my-zsh.tar.gz
 cd ..
 cp -r .oh-my-zsh ~/
-cp ../dotfiles/shellrc/.zshrc ~/
+cp ../../dotfiles/shellrc/.zshrc ~/
 cd ..
 
 echo "Installing XDEB script"
