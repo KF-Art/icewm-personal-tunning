@@ -38,6 +38,15 @@ chmod +x ~/.icewm/startup
 echo "Copying keybindings configuration file (sxhkdrc)..."
 echo ""
 cp -r dotfiles/sxhkd/ ~/.config
+
+echo "Installing Oh My ZSH..."
+echo ""
+cd install
+tar -xvf ../resources/oh-my-zsh.tar.gz
+cp -r .oh-my-zsh ~/
+cp ../dotfiles/shellrc/.zshrc ~/
+cd ..
+
 echo "Installing XDEB script"
 echo ""
 
@@ -79,11 +88,6 @@ xdeb -Sde xed-doc_2.8.4+ulyssa_all.deb
 echo "Installing Xed text editor..."
 sudo xbps-install -y --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1 xapps-common-2.0.7_1
 cd ../..
-
-echo "Installing Oh My ZSH..."
-echo ""
-sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-cp dotfiles/shellrc/.zshrc ~/
 
 echo "Downloading San Francisco Pro font..."
 echo ""
