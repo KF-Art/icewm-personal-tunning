@@ -17,6 +17,17 @@ This guide is focused on Void Linux, and in the future, Artix. Feel free to add 
 - Add dotfiles.
 - Create automated installation script.
 
+<H1>Automated Install (WIP)<H1>
+There is a script that will install and configure everything what I explain in this guide. Note that is still in progress.
+	
+	sudo xbps-install -S git
+	git clone https://github.com/KF-Art/icewm-personal-tunning
+	cd icewm-personal-tunning
+	chmod u+x automated_install_void.sh
+	./automated_install_void.sh
+	
+<code>sudoers</code> editing is not implemented yet; I'm researching about it. Meanwhile, you will need to do it <a href="https://github.com/KF-Art/icewm-personal-tunning/tree/main#add-sudo-exceptions">manually</a>.
+
 <H1>Installing IceWM and initial tools</H1>
 At this point, I'm assuming that you already have your system and Xorg installed. These are just some initial tools, we will install the rest later.
 
