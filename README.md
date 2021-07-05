@@ -17,7 +17,7 @@ This guide is focused on Void Linux, and in the future, Artix. Feel free to add 
 - Add dotfiles.
 - Create automated installation script.
 
-<H1>Automated Install (WIP)<H1>
+<H1>Automated Install (WIP)</H1>
 There is a script that will install and configure everything what I explain in this guide. Note that is still in progress.
 	
 	sudo xbps-install -S git
