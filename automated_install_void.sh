@@ -121,12 +121,12 @@ echo ""
 cd install
 git clone https://github.com/KF-Art/KvFlat-Emerald/
 cd KvFlat-Emerald
-cp -r Solid/KvFlat-Emerald-Solid ~/.config/Kvantum/
+cp -r KvFlat-Emerald-Solid ~/.config/Kvantum/
 cd ../..
 
+echo ""
 echo "Installing StarLabs-Green GTK theme..."
 echo ""
-
 cd install
 tar -xvf ../resources/StarLabs-Green.tar.gz
 sudo cp -r StarLabs-Green /usr/share/themes
