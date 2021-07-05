@@ -121,7 +121,7 @@ echo ""
 cd install
 git clone https://github.com/KF-Art/KvFlat-Emerald/
 cd KvFlat-Emerald
-cp -r Solid/KvFlat-Emerald-Solid ~/.config/Kvantum
+cp -r Solid/KvFlat-Emerald-Solid ~/.config/Kvantum/
 cd ../..
 
 echo "Installing StarLabs-Green GTK theme..."
