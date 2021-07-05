@@ -31,7 +31,8 @@ mkdir install
 
 echo "Copying IceWM configuration files..."
 echo ""
-cp -r dotfiles/icewm ~/
+mkdir ~/.icewm
+cp -r dotfiles/icewm/* ~/.icewm
 echo "Making startup script executable..."
 echo ""
 chmod +x ~/.icewm/startup
