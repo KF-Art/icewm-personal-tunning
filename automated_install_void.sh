@@ -181,7 +181,7 @@ echo ""
 echo "Adding sudo exceptions to use brillo..."
 sudo groupadd brillo
 sudo usermod -aG brillo $USER
-echo '%brillo ALL= NOPASSWD: /usr/bin/brillo /usr/bin/zzz' | sudo EDITOR='tee -a' visudo
+echo '%brillo ALL=(ALL) NOPASSWD: /usr/bin/brillo /usr/bin/zzz' | sudo EDITOR='tee -a' visudo
 echo ""
 echo "If you will use another user in the future, you need to add them to brillo group."
 echo ""
