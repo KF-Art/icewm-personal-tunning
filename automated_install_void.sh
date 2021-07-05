@@ -162,11 +162,19 @@ echo "Copying XFCE's panel configurations..."
 echo ""
 cp -r dotfiles/xfce4 ~/.config/
 
+echo ""
 echo "Configuring Tilix..."
 dconf load /com/gexperts/Tilix/ < resources/tilixrc
+echo ""
 
 echo "Copying .xinitrc..."
 cp dotfiles/xinitrc/.xinitrc ~/
+echo ""
+
+echo ""
+echo "Copying Kvantum configuration file..."
+cp dotfiles/Kvantum/kvantum.kvconfig ~/.config/Kvantum
+echo ""
 
 echo ""
 echo "Adding sudo exceptions to use brillo..."
