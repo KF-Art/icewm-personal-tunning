@@ -162,17 +162,25 @@ cp -r dotfiles/xfce4 ~/.config/
 echo "Configuring Tilix..."
 dconf load /com/gexperts/Tilix/ < resources/tilixrc
 
+echo "Copying .xinitrc..."
+cp dotfiles/xinitrc/.xinitrc ~/
+
+echo ""
+echo "Adding sudo exceptions to use brillo..."
+sudo groupadd brillo
+sudo usermod -aG brillo $USER
+echo '%brillo ALL= NOPASSWD: /usr/bin/brillo' | sudo EDITOR='tee -a' visudo
+echo ""
+echo "If you will use another user in the future, you need to add them to brillo group."
+echo ""
+
 echo "Deleting install files to save space..."
 echo ""
 rm -rf install
 echo "Completed."
 echo ""
 echo "Congratulations! You have installed a tuned IceWM!"
-echo "Lastly, add this line at the end of /etc/sudoers/ via visudo, changing myusername for your username:"
-echo ""
-echo "myusername ALL= NOPASSWD: /usr/bin/brillo"
-echo ""
-echo "Sorry, I'm researching about how to automate this."
+echo "Now you can use startx to begin enjoy your new environment."
 
 
 
