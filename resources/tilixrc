@@ -1,0 +1,13 @@
+[/]
+prompt-on-close=true
+quake-specific-monitor=0
+
+[profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d]
+background-transparency-percent=0
+bold-is-bright=true
+dim-transparency-percent=0
+font='JetBrains Mono NL 10'
+palette=['#2E2E34343636', '#CCCC00000000', '#2626A2A26969', '#FFFFFFFFFFFF', '#2626A2A26969', '#757550507B7B', '#060698209A9A', '#000070702C2C', '#555557575353', '#EFEF29292929', '#2626A2A26969', '#FCFCE9E94F4F', '#72729F9FCFCF', '#ADAD7F7FA8A8', '#3434E2E2E2E2', '#F6F6F5F5F4F4']
+use-system-font=false
+use-theme-colors=true
+visible-name='Predeterminado'
