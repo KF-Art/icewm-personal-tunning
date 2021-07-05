@@ -9,7 +9,7 @@ echo "Enjoy!"
 echo ""
 echo "Installing IceWM and initial tools..."
 
-sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx zzz compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus
+sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus zzz-user-hooks
 
 echo "Enabling services..."
 
@@ -118,7 +118,11 @@ cd ../..
 echo "Installing StarLabs-Green GTK theme..."
 echo ""
 
-
+cd install
+tar -xvf ../resources/StarLabs-Green.tar.gz
+sudo cp -r StarLabs-Green /usr/share/themes
+sudo cp -r StarLabs-Green-Dark /usr/share/themes
+cd ..
 
 echo "Installing Reversal icon theme..."
 cd install
@@ -157,7 +161,7 @@ echo ""
 echo "Congratulations! You have installed a tuned IceWM!"
 echo "Lastly, add this line at the end of /etc/sudoers/ via visudo, changing myusername for your username:"
 echo ""
-echo "myusername ALL= NOPASSWD: /usr/bin/zzz"
+echo "myusername ALL= NOPASSWD: /usr/bin/brillo"
 echo ""
 echo "Sorry, I'm researching about how to automate this."
 
