@@ -35,7 +35,7 @@ Here, you will learn how to configure IceWM and tune it. Also, this is a explana
 <H1>Installing IceWM and initial tools</H1>
 At this point, I'm assuming that you already have your system and Xorg installed. These are just some initial tools, we will install the rest later.
 
-    sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx zzz compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus
+    sudo xbps-install -S icewm ulauncher network-manager-applet pa-applet brillo nemo qt5ct kvantum betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus zzz-user-hooks
     
 Now you can start your X session with <code>startx</code>.
    
@@ -61,12 +61,10 @@ Once created, we'll setup autostart commands and applications (yeah, I used <cod
     ulauncher &
     setxkbmap latam
     /usr/libexec/notification-daemon &
-    xautolock -detectsleep -time 5 -locker "betterlockscreen -l blur -w /path/to/your/wallpaper.png" -killtime 10 -killer "sudo zzz -z"
+    xautolock -detectsleep -time 5 -locker "betterlockscreen -l blur -w /path/to/your/wallpaper.png" -killtime 10 -killer "zzz -z"
     blueman-applet &!
     
 Change <code>/path/to/your/wallpaper.png</code> by the path of your desired background for lockscreen.
-
-Probably, you realized that <code>xautolock</code> uses <code>sudo zzz -z</code> to suspend the system. Don't worry, we'll add an exception to <code>sudoers</code> to be able to do that.
 
 Feel free to increase or decrease the <code>-killtime</code> (10 is the minimum) and <code>-time</code> amount.
 
@@ -127,19 +125,19 @@ And now setup the preferences:
     RebootCommand="loginctl reboot"
     ShutdownCommand="loginctl poweroff"
     TerminalCommand=tilix
-    SuspendCommand="sudo zzz -z"
+    SuspendCommand="zzz -z"
     
 Shutdown and Reboot commands are not working yet, because by default are configured to work with SystemD; working on it. 
 If you don't want to use XFCE's panel, set <code>ShowTaskBar</code> on <code>1</code>, and remove it from autostart.
 
 <H2>Add sudo exceptions</H2>
-<code>brillo</code> and <code>zzz</code> requires root privileges in order to edit the brightness and power status. To be able to use the related keybindings and startup commands, we have to add two exceptions to <code>sudoers</code> file. 
+<code>brillo</code>requires root privileges in order to edit the brightness and power status. To be able to use the related keybindings and startup commands, we have to add one exception to <code>sudoers</code> file. 
 
 	sudo visudo
 
 Now add this line at the end of the file (change <code>yourusername</code> for your user's name):
 	
-	yourusername ALL= NOPASSWD: /usr/bin/zzz /usr/bin/brillo
+	yourusername ALL= NOPASSWD: /usr/bin/brillo
 	
 After that, logout. Related keybindings and startup commands now should work.
 
