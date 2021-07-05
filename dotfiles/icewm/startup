@@ -1,7 +1,5 @@
 #!/bin/bash
-XDG_SESSION_TYPE=x11
 pulseaudio --start &
-# sleep 1 &&
 sxhkd &
 pa-applet &
 nm-applet &
@@ -9,14 +7,9 @@ compton &
 numlockx &
 octoxbps-notifier &
 xscreensaver -nosplash &
-# sleep 1 &&
 xfce4-panel &
 nemo-desktop &
 ulauncher &
-setxkbmap latam
 /usr/libexec/notification-daemon &
-# xautolock -detectsleep -time 5 -locker "i3lock -n -i /media/DATOS/Imágenes/Wallpapers/aks-voidX-stripes.png" -killtime 10 -killer "sudo zzz -z"
-xautolock -detectsleep -time 5 -locker "betterlockscreen -l blur -w /media/DATOS/Imágenes/Wallpapers/pexels-eberhard-grossgasteiger-640781.jpg -t 'Escriba la contraseña.'" -killtime 10 -killer "sudo zzz -z"
-/usr/libexec/polkit-mate-authentication-agent-1 &
-# sleep 1 &&
+xautolock -detectsleep -time 5 -locker "betterlockscreen -l blur -w /path/to/your/wallpaper.png" -killtime 10 -killer "sudo zzz -z"
 blueman-applet &!
