@@ -173,7 +173,8 @@ echo ""
 
 echo ""
 echo "Copying Kvantum configuration file..."
-cp -r dotfiles/Kvantum/ ~/.config/
+mkdir ~/.config/Kvantum
+cp dotfiles/Kvantum/kvantum.kvconfig ~/.config/Kvantum/
 echo ""
 
 echo ""
