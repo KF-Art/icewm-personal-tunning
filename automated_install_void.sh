@@ -92,6 +92,12 @@ echo "Installing Xed text editor..."
 sudo xbps-install -y --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1 xapps-common-2.0.7_1
 cd ../..
 
+echo ""
+echo "Compiling Glib schemas..."
+echo ""
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas
+
+
 echo "Downloading San Francisco Pro font..."
 echo ""
 cd install
