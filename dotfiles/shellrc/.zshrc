@@ -102,3 +102,4 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /etc/profile.d/vte.sh
 fi
 QT_QPA_PLATFORMTHEME="qt5ct"
+export PATH=$PATH:~/.local/share/bin
