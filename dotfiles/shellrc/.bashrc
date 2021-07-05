@@ -105,3 +105,4 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
 fi
 
 QT_QPA_PLATFORMTHEME="qt5ct"
+export PATH=$PATH:~/.local/share/bin
