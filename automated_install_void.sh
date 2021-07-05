@@ -44,10 +44,10 @@ echo ""
 cd install
 mkdir .oh-my-zsh
 cd .oh-my-zsh
-tar -xvf ../resources/oh-my-zsh.tar.gz
+tar -xvf ../../resources/oh-my-zsh.tar.gz
 cd ..
 cp -r .oh-my-zsh ~/
-cp ../../dotfiles/shellrc/.zshrc ~/
+cp ../dotfiles/shellrc/.zshrc ~/
 cd ..
 
 echo "Installing XDEB script"
@@ -60,8 +60,7 @@ git clone https://github.com/toluschr/xdeb
 cd xdeb
 chmod 0744 xdeb
 chmod u+x xdeb
-sudo rm /usr/local/bin/xdeb # delete it if already exists to avoid errors.
-sudo cp xdeb /usr/local/bin
+sudo cp xdeb ~/.local/share/bin
 cd ../..
 
 echo "Installing Xed dependencies..."
@@ -121,7 +120,7 @@ echo ""
 cd install
 git clone https://github.com/KF-Art/KvFlat-Emerald/
 cd KvFlat-Emerald
-cp Solid/KvFlat-Emerald-Solid ~/.config/Kvantum
+cp -r Solid/KvFlat-Emerald-Solid ~/.config/Kvantum
 cd ../..
 
 echo "Installing StarLabs-Green GTK theme..."
@@ -173,7 +172,7 @@ echo ""
 
 echo ""
 echo "Copying Kvantum configuration file..."
-cp dotfiles/Kvantum/kvantum.kvconfig ~/.config/Kvantum
+cp -r dotfiles/Kvantum/ ~/.config/
 echo ""
 
 echo ""
