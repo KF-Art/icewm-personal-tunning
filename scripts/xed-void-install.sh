@@ -1,5 +1,7 @@
 #!/bin/mksh
 
+# This script need to be run with a fully compatible POSIX shell, like mksh or oksh. ZSH and Bash are not working.
+
 mkdir install
 echo "Installing XDEB script"
 echo ""
