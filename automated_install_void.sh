@@ -25,6 +25,7 @@ echo "Copying IceWM configuration files..."
 echo ""
 mkdir ~/.icewm
 cp -r dotfiles/icewm/* ~/.icewm
+echo "octoxbps-notifier &" >> ~/.icewm/startup
 echo "Making startup script executable..."
 echo ""
 chmod +x ~/.icewm/startup
