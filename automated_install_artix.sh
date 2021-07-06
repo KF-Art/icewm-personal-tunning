@@ -106,14 +106,17 @@ betterlockscreen -u -blur ~/.config/betterlockscreen/pexels-eberhard-grossgastei
 
 echo "Copying GTK configurations..."
 echo ""
+mkdir ~/.config/gtk-3.0
 cp -r dotfiles/gtk-3.0 ~/.config/
 
 echo "Copying Qt5ct configurations.."
 echo ""
+mkdir ~/.config/qt5ct
 cp dotfiles/qt5ct/qt5ct.conf ~/.config/qt5ct/
 
 echo "Copying uLauncher configurations..."
 echo ""
+mkdir ~/.config/ulauncher
 cp -r dotfiles/ulauncher ~/.config
 
 echo "Copying XFCE's panel configurations..."
