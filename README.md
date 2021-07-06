@@ -12,6 +12,9 @@ I used Nemo as the default file manager, and Tilix is the selected terminal emul
 
 This guide is focused on Void Linux, and in the future, Artix. Feel free to add or remove everything as you need and/or want in your setup. This is just a guide.
 
+<H1>Special Thanks</H1>
+- <a href="https://github.com/tuxliban">Tuxliban</a> for contributing on simply and optimize enabling services and Xed text editor process. 
+
 <H1>To Do</H1>
 
 - Make MATE Polkit agent to run at startup.
