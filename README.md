@@ -21,6 +21,7 @@ This guide is focused on Void Linux, and in the future, Artix. Feel free to add 
 - Make Nemo's "Run as root" context menu option to work properly.
 - Make the script detect existing files and folders.
 - Correct some guide content.
+- Make wallpaper to work properly with Nemo Desktop.
 - Add XFCE's panel configuration files.
 - Make automated script to detect signature error on package download and then, abort the installation.
 - Add Artix guide and automated script.
