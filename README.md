@@ -29,13 +29,23 @@ This guide is focused on Void Linux, and in the future, Artix. Feel free to add 
 - Polish automated installation script.
 
 <H1>Automated Install (WIP)</H1>
-There is a script that will install and configure everything what I explain in this guide. Note that is still in progress, and only Void Linux is supported for now.
+There is a script that will install and configure everything what I explain in this guide. Note that is still in progress, so it may contain some bugs or errors.
+
+Void Linux:
 	
 	sudo xbps-install -S git
 	git clone https://github.com/KF-Art/icewm-personal-tunning
 	cd icewm-personal-tunning
 	chmod u+x automated_install_void.sh
 	./automated_install_void.sh
+	
+Artix:
+
+	sudo pacman -S git
+	git clone https://github.com/KF-Art/icewm-personal-tunning
+	cd icewm-personal-tunning
+	chmod u+x automated_install_artix.sh
+	./automated_install_artix.sh
 	
 After that, you can start your X session with <code>startx</code>.
 
