@@ -62,13 +62,14 @@ At this point, I'm assuming that you already have your base system and Xorg inst
 <H2>Enabling services</H2>
 Once installed, we have to enable services in order to have an X session, connectivity and Cron management. 
 
+
 Void Linux:
 
-	sudo ln -s /etc/sv/{bluetoothd,NetworkManager,udevd,dbus,xrond} /var/service
+	sudo ln -s /etc/sv/{bluetoothd,NetworkManager,udevd,dbus,crond} /var/service
 	
 Artix: 
 
-	sudo ln -s /etc/runit/sv/{bluetoothd,NetworkManager,udevd,dbus,xrond} /run/runit/service/
+	sudo ln -s /etc/runit/sv/{bluetoothd,NetworkManager,udevd,dbus,cronie} /run/runit/service/
     
 From this point you can start your X session with <code>startx</code>.
 
