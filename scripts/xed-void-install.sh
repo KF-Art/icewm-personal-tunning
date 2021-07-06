@@ -16,6 +16,8 @@ mkdir ~/.local/share/bin
 sudo cp xdeb ~/.local/share/bin/
 cd ..
 
+XDEB=~/.local/share/bin/xdeb
+
 echo "Installing Xed dependencies..."
 echo ""
 # Install repo dependencies.
@@ -31,7 +33,7 @@ for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/back
 
 echo "Converting Xed packages with XDEB..."
 echo ""
-for i in $(cat xed_packages); do xdeb -Sde $i; done
+for i in $(cat xed_packages); do $XDEB -Sde $i; done
 
 # Install converted packages.
 echo "Installing Xed text editor..."
