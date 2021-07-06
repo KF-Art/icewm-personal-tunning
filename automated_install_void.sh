@@ -14,18 +14,10 @@ sudo xbps-install -Sy icewm ulauncher network-manager-applet tilix pa-applet bri
 echo "Enabling services..."
 
 #If are already enabled, delete them to avoid conflicts.
-sudo rm /var/service/bluetoothd
-sudo rm /var/service/NetworkManager
-sudo rm /var/service/udevd
-sudo rm /var/service/dbus
-sudo rm /var/service/crond
+sudo rm /var/service/{bluetoothd,NetworkManager,udevd,dbus,crond}
 
 #Enable services.
-sudo ln -s /etc/sv/bluetoothd /var/service
-sudo ln -s /etc/sv/NetworkManager /var/service
-sudo ln -s /etc/sv/udevd /var/service
-sudo ln -s /etc/sv/dbus /var/service
-sudo ln -s /etc/sv/crond /var/service
+sudo ln -s /etc/sv/{bluetoothd,NetworkManager,udevd,dbus,crond} /var/service
 
 mkdir install
 
@@ -74,18 +66,13 @@ echo "Downloading Xed text editor..."
 cd install
 mkdir xed 
 cd xed
-wget http://packages.linuxmint.com/pool/backport/x/xed/xed_2.8.4+ulyssa_amd64.deb
-wget http://packages.linuxmint.com/pool/backport/x/xed/xed-common_2.8.4+ulyssa_all.deb
-wget http://packages.linuxmint.com/pool/backport/x/xapp/xapps-common_2.0.7+ulyssa_all.deb
-wget http://packages.linuxmint.com/pool/backport/x/xed/xed-doc_2.8.4+ulyssa_all.deb
+echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxapps-common_2.0.7+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
+for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
 # Convert them with XDEB.
 
 echo "Converting Xed packages with XDEB..."
 echo ""
-/home/$USER/.local/share/bin/xdeb -Sde xed_2.8.4+ulyssa_amd64.deb
-/home/$USER/.local/share/bin/xdeb -Sde xed-common_2.8.4+ulyssa_all.deb
-/home/$USER/.local/share/bin/xdeb -Sde xapps-common_2.0.7+ulyssa_all.deb
-/home/$USER/.local/share/bin/xdeb -Sde xed-doc_2.8.4+ulyssa_all.deb
+for i in $(cat xed_packages); do xdeb -Sde $i; done
 # Install converted packages.
 
 echo "Installing Xed text editor..."
