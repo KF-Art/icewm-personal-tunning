@@ -56,6 +56,9 @@ mkdir ~/.local/share/bin
 sudo cp xdeb ~/.local/share/bin/
 cd ../..
 
+#Variable to simplify code.
+XDEB=~/.local/share/bin/xdeb
+
 echo "Installing Xed dependencies..."
 echo ""
 # Install repo dependencies.
@@ -66,6 +69,7 @@ echo "Downloading Xed text editor..."
 cd install
 mkdir xed 
 cd xed
+
 # The echo command is replaced by printf so that the line break is respected and the text does not remain on a single line
 printf "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
 for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
@@ -73,18 +77,18 @@ for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/back
 # Convert them with XDEB.
 echo "Converting Xed packages with XDEB..."
 echo ""
-for i in $(cat xed_packages); do xdeb -Sde $i; done
+for i in $(cat xed_packages); do $XDEB -Sde $i; done
 
 # Install converted packages.
 echo "Installing Xed text editor..."
 sudo xbps-install -y --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1 
 cd ../..
 
+# Compile Glib schemas. Without this, Xed will not work.
 echo ""
 echo "Compiling Glib schemas..."
 echo ""
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas
-
 
 echo "Downloading San Francisco Pro font..."
 echo ""

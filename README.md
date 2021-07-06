@@ -13,7 +13,7 @@ I used Nemo as the default file manager, and Tilix is the selected terminal emul
 This guide is focused on Void Linux, and in the future, Artix. Feel free to add or remove everything as you need and/or want in your setup. This is just a guide.
 
 <H1>Special Thanks</H1>
-- <a href="https://github.com/tuxliban">Tuxliban Torvalds</a> for contributing on simply and optimize enabling services and Xed text editor process. 
+- <a href="https://github.com/tuxliban">Tuxliban Torvalds</a> for contributing on simplify and optimize enabling services and Xed text editor process. 
 
 <H1>To Do</H1>
 
@@ -21,6 +21,7 @@ This guide is focused on Void Linux, and in the future, Artix. Feel free to add 
 - Make Nemo's "Run as root" context menu option to work properly.
 - Make the script detect existing files and folders.
 - Correct some guide content.
+- Make wallpaper to work properly with Nemo Desktop.
 - Add XFCE's panel configuration files.
 - Make automated script to detect signature error on package download and then, abort the installation.
 - Add Artix guide and automated script.
@@ -28,13 +29,23 @@ This guide is focused on Void Linux, and in the future, Artix. Feel free to add 
 - Polish automated installation script.
 
 <H1>Automated Install (WIP)</H1>
-There is a script that will install and configure everything what I explain in this guide. Note that is still in progress, and only Void Linux is supported for now.
+There is a script that will install and configure everything what I explain in this guide. Note that is still in progress, so it may contain some bugs or errors.
+
+Void Linux:
 	
 	sudo xbps-install -S git
 	git clone https://github.com/KF-Art/icewm-personal-tunning
 	cd icewm-personal-tunning
 	chmod u+x automated_install_void.sh
 	./automated_install_void.sh
+	
+Artix:
+
+	sudo pacman -S git
+	git clone https://github.com/KF-Art/icewm-personal-tunning
+	cd icewm-personal-tunning
+	chmod u+x automated_install_artix.sh
+	./automated_install_artix.sh
 	
 After that, you can start your X session with <code>startx</code>.
 
@@ -60,11 +71,17 @@ Into Artix, you will need to enable Arch Linux support and install Yay or any AU
 <H1>Installing IceWM and base packages</H1>
 At this point, I'm assuming that you already have your base system and Xorg installed. These packages are all the base to get all explained in this guide to work properly:
 
-    #Void Linux
+Void Linux:
+
     sudo xbps-install -S icewm ulauncher network-manager-applet tilix pa-applet brillo nemo qt5ct zsh kvantum unzip zip tar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus zzz-user-hooks
     
-    #Artix
-    yay -S --needed icewm ulauncher network-manager-applet tilix pa-applet-git nemo qt5ct zsh kvantum-qt5 unzip zip tar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octopi octopi-notifier-frameworks notification-daemon playerctl numlockx compton-old-git xscreensaver xorg-setxkbmap xautolock blueman networkmanager pulseaudio firefox pavucontrol git wget eudev timeshift-bin cronie cronie-runit xorg-xinit bluez dbus xed
+Artix:
+
+    #Repositories packages.
+    sudo pacman -S --needed icewm network-manager-applet tilix nemo qt5ct zsh kvantum-qt5 unzip zip tar sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octopi octopi-notifier-frameworks notification-daemon playerctl numlockx xscreensaver xorg-setxkbmap xautolock blueman networkmanager pulseaudio firefox pavucontrol git wget eudev cronie cronie-runit xorg-xinit bluez dbus xed
+    
+    #AUR packages.
+    yay -Sa --needed ulauncher pa-applet-git timeshift-bin betterlockscreen compton-old-git
     
 <H2>Enabling services</H2>
 Once installed, we have to enable services in order to have an X session, connectivity and Cron management. 
@@ -210,7 +227,7 @@ The installation of Xed via XDEB is quite tedious, so I created a script to auto
 	
 	git clone https://github.com/KF-Art/icewm-personal-tunning/
 	
-Now you can run the installation script:
+Now you can run the installation script. Note that you will need a POSIX compatible shell, like <code>oksh</code> or <code>mksh</code>. In this script we'll use <code>sh</code> to avoid installing extra packages.
 
 	cd icewm-personal-tunning/scripts/
 	chmod u+x xed_void_install.sh
@@ -219,7 +236,7 @@ Now you can run the installation script:
 <H3>DIY Method</H3>
 We'll take the official's Linux Mint package, convert it to XBPS and install it. But first, we need to install XDEB script (into automated script, the selected path is <code>~/.local/share/bin</code> to avoid errors.
 
-	sudo xbps-install -S binutils tar curl xz
+	sudo xbps-install -S binutils tar curl xz mksh
 	git clone https://github.com/toluschr/xdeb
 	cd xdeb
 	chmod u+x xdeb
@@ -232,7 +249,8 @@ Once installed, we can proceed to package conversion. Install Xapps dependency f
 Download DEB packages from official Linux Mint's repository:
 
 	mkdir xed && cd xed
-	echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxapps-common_2.0.7+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
+	/usr/bin/sh # Change to sh. This will not work on Bash or ZSH.
+	echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
 	for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
 	
 And convert them with XDEB:
@@ -241,7 +259,8 @@ And convert them with XDEB:
 	
 Finally, you can install them:
 
-	sudo xbps-install --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1 xapps-common-2.0.7_1
+	sudo xbps-install --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1
+	# Now you can exit from sh, if you want.
 	
 Xed needs its Glib schemas to be compiled. Otherwise, it will not work.
 

@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/sh
+
+# This script need to be run with a fully compatible POSIX shell, like sh, mksh or oksh. ZSH and Bash are not working.
 
 mkdir install
 echo "Installing XDEB script"
@@ -14,6 +16,8 @@ mkdir ~/.local/share/bin
 sudo cp xdeb ~/.local/share/bin/
 cd ..
 
+XDEB=~/.local/share/bin/xdeb
+
 echo "Installing Xed dependencies..."
 echo ""
 # Install repo dependencies.
@@ -23,17 +27,17 @@ echo "Downloading Xed text editor..."
 # Download DEB packages from Linux Mint's repository.
 mkdir xed 
 cd xed
-echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxapps-common_2.0.7+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
+echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
 for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
 # Convert them with XDEB.
 
 echo "Converting Xed packages with XDEB..."
 echo ""
-for i in $(cat xed_packages); do xdeb -Sde $i; done
+for i in $(cat xed_packages); do $XDEB -Sde $i; done
 
 # Install converted packages.
 echo "Installing Xed text editor..."
-sudo xbps-install -y --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1 xapps-common-2.0.7_1
+sudo xbps-install -y --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1
 cd ../..
 
 echo ""
