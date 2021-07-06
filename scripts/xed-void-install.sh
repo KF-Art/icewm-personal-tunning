@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/mksh
 
 mkdir install
 echo "Installing XDEB script"
