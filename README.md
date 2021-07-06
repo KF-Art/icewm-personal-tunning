@@ -221,8 +221,9 @@ The installation of Xed via XDEB is quite tedious, so I created a script to auto
 	
 	git clone https://github.com/KF-Art/icewm-personal-tunning/
 	
-Now you can run the installation script:
+Now you can run the installation script. Note that you will need a POSIX compatible shell, like <code>oksh</code> or <code>mksh</code>. In this script we'll use <code>mksh</code>.
 
+	sudo xbps-install -S mksh
 	cd icewm-personal-tunning/scripts/
 	chmod u+x xed_void_install.sh
 	./xed_void_install.sh
@@ -230,7 +231,7 @@ Now you can run the installation script:
 <H3>DIY Method</H3>
 We'll take the official's Linux Mint package, convert it to XBPS and install it. But first, we need to install XDEB script (into automated script, the selected path is <code>~/.local/share/bin</code> to avoid errors.
 
-	sudo xbps-install -S binutils tar curl xz
+	sudo xbps-install -S binutils tar curl xz mksh
 	git clone https://github.com/toluschr/xdeb
 	cd xdeb
 	chmod u+x xdeb
@@ -243,6 +244,7 @@ Once installed, we can proceed to package conversion. Install Xapps dependency f
 Download DEB packages from official Linux Mint's repository:
 
 	mkdir xed && cd xed
+	/usr/bin/mksh # Change to mksh. This will not work on Bash or ZSH.
 	echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxapps-common_2.0.7+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
 	for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
 	
