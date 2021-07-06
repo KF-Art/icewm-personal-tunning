@@ -64,19 +64,11 @@ Once installed, we have to enable services in order to have an X session, connec
 
 Void Linux:
 
-	sudo ln -s /etc/sv/bluetoothd /var/service
-	sudo ln -s /etc/sv/NetworkManager /var/service
-	sudo ln -s /etc/sv/udevd /var/service
-	sudo ln -s /etc/sv/dbus /var/service
-	sudo ln -s /etc/sv/crond /var/service
+	sudo ln -s /etc/sv/{bluetoothd,NetworkManager,udevd,dbus,xrond} /var/service
 	
 Artix: 
 
-	sudo ln -s /etc/runit/sv/bluetoothd /run/runit/service/
-	sudo ln -s /etc/runit/sv/NetworkManager /run/runit/service/
-	sudo ln -s /etc/runit/sv/udevd /run/runit/service/
-	sudo ln -s /etc/runit/sv/dbus /run/runit/service/
-	sudo ln -s /etc/runit/sv/cronie /run/runit/service/
+	sudo ln -s /etc/runit/sv/{bluetoothd,NetworkManager,udevd,dbus,xrond} /run/runit/service/
     
 From this point you can start your X session with <code>startx</code>.
 
@@ -232,17 +224,12 @@ Once installed, we can proceed to package conversion. Install Xapps dependency f
 Download DEB packages from official Linux Mint's repository:
 
 	mkdir xed && cd xed
-	wget http://packages.linuxmint.com/pool/backport/x/xed/xed_2.8.4+ulyssa_amd64.deb
-	wget http://packages.linuxmint.com/pool/backport/x/xed/xed-common_2.8.4+ulyssa_all.deb
-	wget http://packages.linuxmint.com/pool/backport/x/xapp/xapps-common_2.0.7+ulyssa_all.deb
-	wget http://packages.linuxmint.com/pool/backport/x/xed/xed-doc_2.8.4+ulyssa_all.deb
+	echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxapps-common_2.0.7+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
+	for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
 	
-And convert them with XDEB (it only allows one operation per time, and that make the process quite tedious):
+And convert them with XDEB:
 
-	xdeb -Sde xed_2.8.4+ulyssa_amd64.deb
-	xdeb -Sde xed-common_2.8.4+ulyssa_all.deb
-	xdeb -Sde xapps-common_2.0.7+ulyssa_all.deb
-	xdeb -Sde xed-doc_2.8.4+ulyssa_all.deb
+	for i in $(cat xed_packages); do xdeb -Sde $i; done
 	
 Finally, you can install them:
 
