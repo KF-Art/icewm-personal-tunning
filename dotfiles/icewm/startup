@@ -5,7 +5,6 @@ pa-applet &
 nm-applet &
 compton &
 numlockx &
-octoxbps-notifier &
 xscreensaver -nosplash &
 xfce4-panel &
 nemo-desktop &
