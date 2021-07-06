@@ -115,6 +115,9 @@ mkdir ~/.config/betterlockscreen/
 cp resources/pexels-eberhard-grossgasteiger-640781.jpg  ~/.config/betterlockscreen/
 betterlockscreen -u -blur ~/.config/betterlockscreen/pexels-eberhard-grossgasteiger-640781.jpg
 
+echo "Setting wallpaper..."
+betterlockscreen -w ~/.config/betterlockscreen/pexels-eberhard-grossgasteiger-640781.jpg
+
 echo "Copying GTK configurations..."
 echo ""
 mkdir ~/.config/gtk-3.0
