@@ -239,6 +239,12 @@ Finally, you can install them:
 
 	sudo xbps-install --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1 xapps-common-2.0.7_1
 	
+Xed needs its Glib schemas to be compiled. Otherwise, it will not work.
+
+	sudo glib-compile-schemas /usr/share/glib-2.0/schemas
+
+Now Xed should be working properly.
+
 If you want, delete the Gedit package. The automated script doesn't remove Gedit, in case Xed fails in the future.
 
 	sudo xbps-remove -R gedit
