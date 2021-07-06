@@ -31,7 +31,7 @@ echo ""
 echo "Installing IceWM and initial tools..."
 
 sudo pacman -S icewm network-manager-applet tilix nemo qt5ct zsh kvantum-qt5 unzip zip tar sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octopi octopi-notifier-frameworks notification-daemon playerctl numlockx xscreensaver xorg-setxkbmap xautolock blueman networkmanager pulseaudio firefox pavucontrol git wget eudev cronie cronie-runit xorg-xinit bluez dbus xed
-yay -Sa ulauncher pa-applet-git timeshift-bin betterlockscreen compton-old-git
+yay -Sa --noconfirm --needed ulauncher pa-applet-git timeshift-bin betterlockscreen compton-old-git
 
 echo "Enabling services..."
 
