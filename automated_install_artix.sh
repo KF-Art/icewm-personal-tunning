@@ -42,7 +42,8 @@ echo "Copying IceWM configuration files..."
 echo ""
 mkdir ~/.icewm
 cp -r dotfiles/icewm/* ~/.icewm
-echo "octopi-notifier &" >> ~/.icewm/startup
+echo "/usr/bin/octopi-notifier &" >> ~/.icewm/startup
+echo "
 echo "Making startup script executable..."
 echo ""
 chmod +x ~/.icewm/startup
@@ -60,6 +61,9 @@ tar -xvf ../../resources/oh-my-zsh.tar.gz
 cd ..
 cp -r .oh-my-zsh ~/
 cp ../dotfiles/shellrc/.zshrc ~/
+
+echo "Changing the default shell to ZSH..."
+chsh -s /usr/bin/zsh
 cd ..
 
 echo ""
