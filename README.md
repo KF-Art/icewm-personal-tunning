@@ -244,7 +244,7 @@ Download DEB packages from official Linux Mint's repository:
 
 	mkdir xed && cd xed
 	/usr/bin/mksh # Change to sh. This will not work on Bash or ZSH.
-	echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxapps-common_2.0.7+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
+	echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
 	for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
 	
 And convert them with XDEB:
@@ -253,7 +253,7 @@ And convert them with XDEB:
 	
 Finally, you can install them:
 
-	sudo xbps-install --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1 xapps-common-2.0.7_1
+	sudo xbps-install --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1
 	# Now you can exit from sh, if you want.
 	
 Xed needs its Glib schemas to be compiled. Otherwise, it will not work.
