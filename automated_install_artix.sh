@@ -138,7 +138,7 @@ echo ""
 mkdir ~/.config/ulauncher
 cp -r dotfiles/ulauncher ~/.config
 
-echo "Copying XFCE's panel configurations..."
+echo "Copying XFCE panel configurations..."
 echo ""
 cp -r dotfiles/xfce4 ~/.config/
 
