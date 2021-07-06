@@ -1,5 +1,5 @@
 # IceWM Personal Tunning (WIP)
-Personal customization of IceWM on mainly, Void Linux.
+Personal customization of IceWM on mainly, Void Linux and Artix Runit. Note that other inits are not supported in this guide.
 
 <H1>Overview</H1>
 
@@ -38,10 +38,26 @@ After that, you can start your X session with <code>startx</code>.
 <H1>DIY Method</H1>
 Here, you will learn how to configure IceWM and tune it. Also, this is a explanation of the automated script's functioning.
 
-<H1>Installing IceWM and base packages</H1>
-At this point, I'm assuming that you already have your base system and Xorg installed. These packages are all the base to get all explained in this guide to work properly.
+<H1>Installing Yay and enabling Arch Linux support (Artix Only)</H1>
+Into Artix, you will need to enable Arch Linux support and install Yay or any AUR helper. 
+	
+    #Installing Yay
+    pacman -S base-devel git
+    git clone https://aur.archlinux.org/yay-bin.git
+    cd yay-bin
+    makepkg -si
 
+    #Enabling Arch Linux support
+    pacman -S artix-archlinux-support
+
+<H1>Installing IceWM and base packages</H1>
+At this point, I'm assuming that you already have your base system and Xorg installed. These packages are all the base to get all explained in this guide to work properly:
+
+    #Void Linux
     sudo xbps-install -S icewm ulauncher network-manager-applet tilix pa-applet brillo nemo qt5ct zsh kvantum unzip zip tar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus zzz-user-hooks
+    
+    #Artix
+    yay -S icewm ulauncher network-manager-applet tilix pa-applet-git nemo qt5ct zsh kvantum unzip zip tar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octopi notification-daemon playerctl numlockx compton-old-git xscreensaver xorg-setxkbmap xautolock blueman networkmanager pulseaudio firefox pavucontrol git wget eudev timeshift cronie cronie-runit xorg-xinit bluez dbus xed
     
 <H2>Enabling services</H2>
 Once installed, we have to enable service in order to have an X session, connectivity and Cron management:
@@ -53,6 +69,15 @@ Once installed, we have to enable service in order to have an X session, connect
 	sudo ln -s /etc/sv/crond /var/service
     
 From this point you can start your X session with <code>startx</code>.
+
+<H2>Install Brillo (Artix only)</H2>
+For some reason, the AUR package gives an error when compiling. So it's necessary to compile it manually.
+
+	wget https://gitlab.com/cameronnemo/brillo/-/archive/v1.4.9/brillo-v1.4.9.tar.gz
+	tar -xvf brillo-v1.4.9.tar.gz
+	cd brillo-v1.4.9
+	make 
+	sudo make install install.apparmor install.polkit DESTDIR="/"
    
 <H2>Configuring Autostart</H2>
 For some reason, IceWM ignores <code>~/.config/autostart</code> and <code>~/.config/autostart-scripts</code> configurations (at least on Void Linux). Fortunately, IceWM has its own built-in startup manager. We'll create a new file called <code>startup</code> inside <code>~/.icewm</code>.
@@ -69,7 +94,11 @@ Once created, we'll setup autostart commands and applications (yeah, I used <cod
     nm-applet &
     compton &
     numlockx &
+    
+    #In Void use octoxbps-notifier and in Artix, octopi-notifier.
     octoxbps-notifier &
+    # octopi-notifier &
+    
     xscreensaver -nosplash &
     xfce4-panel &
     nemo-desktop &
