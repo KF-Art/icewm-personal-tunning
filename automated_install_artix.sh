@@ -172,4 +172,4 @@ rm -rf install
 echo "Completed."
 echo ""
 echo "Congratulations! You have installed a tuned IceWM!"
-echo "Now you can use startx to begin enjoy your new environment."
+echo 'Now you can use startx to begin enjoy your new environment.'
