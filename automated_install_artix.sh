@@ -47,7 +47,7 @@ echo "
 echo "Making startup script executable..."
 echo ""
 chmod +x ~/.icewm/startup
-echo "Copying keybindings configuration file (sxhkdrc)..."
+echo "Copying keybindings configuration file..."
 echo ""
 cp -r dotfiles/sxhkd/ ~/.config
 
