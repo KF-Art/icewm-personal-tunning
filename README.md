@@ -64,7 +64,7 @@ At this point, I'm assuming that you already have your base system and Xorg inst
     sudo xbps-install -S icewm ulauncher network-manager-applet tilix pa-applet brillo nemo qt5ct zsh kvantum unzip zip tar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus zzz-user-hooks
     
     #Artix
-    yay -S icewm ulauncher network-manager-applet tilix pa-applet-git nemo qt5ct zsh kvantum unzip zip tar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octopi notification-daemon playerctl numlockx compton-old-git xscreensaver xorg-setxkbmap xautolock blueman networkmanager pulseaudio firefox pavucontrol git wget eudev timeshift cronie cronie-runit xorg-xinit bluez dbus xed
+    yay -S --needed icewm ulauncher network-manager-applet tilix pa-applet-git nemo qt5ct zsh kvantum-qt5 unzip zip tar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octopi octopi-notifier-frameworks notification-daemon playerctl numlockx compton-old-git xscreensaver xorg-setxkbmap xautolock blueman networkmanager pulseaudio firefox pavucontrol git wget eudev timeshift-bin cronie cronie-runit xorg-xinit bluez dbus xed
     
 <H2>Enabling services</H2>
 Once installed, we have to enable services in order to have an X session, connectivity and Cron management. 
