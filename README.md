@@ -25,7 +25,7 @@ This guide is focused on Void Linux, and in the future, Artix. Feel free to add 
 - Polish automated installation script.
 
 <H1>Automated Install (WIP)</H1>
-There is a script that will install and configure everything what I explain in this guide. Note that is still in progress.
+There is a script that will install and configure everything what I explain in this guide. Note that is still in progress, and only Void Linux is supported for now.
 	
 	sudo xbps-install -S git
 	git clone https://github.com/KF-Art/icewm-personal-tunning
