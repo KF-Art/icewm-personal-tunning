@@ -57,6 +57,10 @@ mkdir ~/.local/share/bin
 sudo cp xdeb ~/.local/share/bin/
 cd ../..
 
+#Variable to simplify code.
+XDEB=~/.local/share/bin/xdeb
+SH=/usr/bin/sh
+
 echo "Installing Xed dependencies..."
 echo ""
 # Install repo dependencies.
@@ -67,17 +71,20 @@ echo "Downloading Xed text editor..."
 cd install
 mkdir xed 
 cd xed
-echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxapps-common_2.0.7+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
-for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
+
+#These commands needs to be run with a fully compatible POSIX shell, in this case, sh. 
+#BASH and ZSH are not working.
+SH echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
+SH for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
 # Convert them with XDEB.
 
 echo "Converting Xed packages with XDEB..."
 echo ""
-for i in $(cat xed_packages); do xdeb -Sde $i; done
+SH for i in $(cat xed_packages); do $XDEB -Sde $i; done
 # Install converted packages.
 
 echo "Installing Xed text editor..."
-sudo xbps-install -y --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1 xapps-common-2.0.7_1
+SH sudo xbps-install -y --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1
 cd ../..
 
 echo ""
