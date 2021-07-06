@@ -243,7 +243,7 @@ Once installed, we can proceed to package conversion. Install Xapps dependency f
 Download DEB packages from official Linux Mint's repository:
 
 	mkdir xed && cd xed
-	/usr/bin/mksh # Change to sh. This will not work on Bash or ZSH.
+	/usr/bin/sh # Change to sh. This will not work on Bash or ZSH.
 	echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
 	for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
 	
