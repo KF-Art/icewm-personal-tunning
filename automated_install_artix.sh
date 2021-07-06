@@ -21,10 +21,11 @@ cd ../..
 echo ""
 echo "Enabling Arch Linux support..."
 echo ""
-pacman -S artix-archlinux-support
+sudo pacman -S artix-archlinux-support --needed --noconfirm
 
 # Add Arch Linux repos to pacman.conf. Hope that in the future this is not necessary.
 cat resources/pacman-arch-support.conf | sudo tee -a /etc/pacman.conf
+sudo pacman -Sy
 
 echo ""
 echo "Installing IceWM and initial tools..."
