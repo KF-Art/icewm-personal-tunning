@@ -74,19 +74,20 @@ cd xed
 
 #These commands needs to be run with a fully compatible POSIX shell, in this case, sh. 
 #BASH and ZSH are not working.
-SH echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
-SH for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
-# Convert them with XDEB.
+$SH echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
+$SH for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
 
+# Convert them with XDEB.
 echo "Converting Xed packages with XDEB..."
 echo ""
-SH for i in $(cat xed_packages); do $XDEB -Sde $i; done
-# Install converted packages.
+$SH for i in $(cat xed_packages); do $XDEB -Sde $i; done
 
+# Install converted packages.
 echo "Installing Xed text editor..."
-SH sudo xbps-install -y --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1
+$SH sudo xbps-install -y --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1
 cd ../..
 
+# Compile Glib schemas. Without this, Xed will not work.
 echo ""
 echo "Compiling Glib schemas..."
 echo ""
