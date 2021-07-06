@@ -52,6 +52,10 @@ Into Artix, you will need to enable Arch Linux support and install Yay or any AU
 
     #Enabling Arch Linux support
     pacman -S artix-archlinux-support
+    git clone https://github.com/KF-Art/icewm-personal-tunning/ && cd icewm-personal-tunning
+    
+    # Add Arch Linux repos to pacman.conf. Hope that in the future this is not necessary.
+    cat resources/pacman-arch-support.conf | sudo tee -a /etc/pacman.conf
 
 <H1>Installing IceWM and base packages</H1>
 At this point, I'm assuming that you already have your base system and Xorg installed. These packages are all the base to get all explained in this guide to work properly:
