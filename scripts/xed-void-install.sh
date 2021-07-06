@@ -37,7 +37,7 @@ for i in $(cat xed_packages); do $XDEB -Sde $i; done
 
 # Install converted packages.
 echo "Installing Xed text editor..."
-sudo xbps-install -y --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1 xapps-common-2.0.7_1
+sudo xbps-install -y --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1
 cd ../..
 
 echo ""
