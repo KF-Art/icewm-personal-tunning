@@ -11,6 +11,7 @@ echo "Enjoy!"
 
 mkdir install
 echo "Installing Yay AUR helper..."
+cd install
 sudo pacman -S --needed --noconfirm base-devel git
 git clone https://aur.archlinux.org/yay-bin.git
 cd yay-bin
