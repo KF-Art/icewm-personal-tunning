@@ -17,6 +17,14 @@ cd yay-bin
 makepkg -si
 
 echo ""
+echo "Enabling Arch Linux support..."
+echo ""
+pacman -S artix-archlinux-support
+
+# Add Arch Linux repos to pacman.conf. Hope that in the future this is not necessary.
+cat resources/pacman-arch-support.conf | sudo tee -a /etc/pacman.conf
+
+echo ""
 echo "Installing IceWM and initial tools..."
 
 yay -S --needed --noconfirm icewm ulauncher network-manager-applet tilix pa-applet-git nemo qt5ct zsh kvantum unzip zip tar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octopi notification-daemon playerctl numlockx compton-old-git xscreensaver xorg-setxkbmap xautolock blueman networkmanager pulseaudio firefox pavucontrol git wget eudev timeshift cronie cronie-runit xorg-xinit bluez dbus xed
