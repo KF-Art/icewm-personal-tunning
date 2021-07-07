@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 echo "Welcome to IceWM Tuner!"
 echo "This script will install IceWM and configure a lot of things."
 echo "Created by Kevin Figueroa"
@@ -29,17 +29,6 @@ chmod +x ~/.icewm/startup
 echo "Copying keybindings configuration file (sxhkdrc)..."
 echo ""
 cp -r dotfiles/sxhkd/ ~/.config
-
-echo "Installing Oh My ZSH..."
-echo ""
-cd install
-mkdir .oh-my-zsh
-cd .oh-my-zsh
-bsdtar -xvf ../../resources/oh-my-zsh.tar.gz
-cd ..
-cp -r .oh-my-zsh ~/
-cp ../dotfiles/shellrc/.zshrc ~/
-cd ..
 
 echo "Installing XDEB script"
 echo ""
@@ -173,6 +162,14 @@ echo "Copying Kvantum configuration file..."
 mkdir ~/.config/Kvantum
 cp dotfiles/Kvantum/kvantum.kvconfig ~/.config/Kvantum/
 echo ""
+
+# Add lines to ~/.bashrc
+echo ""
+echo "Adding custom Bash prompt..."
+echo ""
+cat resources/custom-prompt-bash | tee -a ~/.bashrc
+echo "Adding variables to ~/.bashrc..."
+cat resources/shell_variables | tee -a ~/.bashrc
 
 echo ""
 echo "Adding sudo exceptions to use brillo..."
