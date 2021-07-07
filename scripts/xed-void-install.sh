@@ -27,7 +27,7 @@ echo "Downloading Xed text editor..."
 # Download DEB packages from Linux Mint's repository.
 mkdir xed 
 cd xed
-echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
+printf "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
 for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
 # Convert them with XDEB.
 
