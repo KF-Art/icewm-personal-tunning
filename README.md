@@ -97,6 +97,19 @@ Artix:
     
 From this point you can start your X session with <code>startx</code>.
 
+<H2>Add environment variables</H2>
+In order to make work some applications like Tilix and Qt5ct, we'll need to add some environment variables to your shell configuration file:
+
+	QT_QPA_PLATFORMTHEME="qt5ct" #Allows qt5ct to manage Qt settings.
+
+	#Tilix's VTE compatibility
+	if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        	source /etc/profile.d/vte.sh
+	fi
+
+	#We'll use this when installing Xed via XDEB.
+	export PATH=$PATH:~/.local/share/bin
+	
 <H2>Install Brillo (Artix only)</H2>
 For some reason, the AUR package gives an error when compiling. So it's necessary to compile it manually.
 
@@ -236,7 +249,7 @@ Now you can run the installation script. Note that you will need a POSIX compati
 <H3>DIY Method</H3>
 We'll take the official's Linux Mint package, convert it to XBPS and install it. But first, we need to install XDEB script (into automated script, the selected path is <code>~/.local/share/bin</code> to avoid errors.
 
-	sudo xbps-install -S binutils tar curl xz mksh
+	sudo xbps-install -S binutils tar curl xz
 	git clone https://github.com/toluschr/xdeb
 	cd xdeb
 	chmod u+x xdeb
@@ -249,8 +262,7 @@ Once installed, we can proceed to package conversion. Install Xapps dependency f
 Download DEB packages from official Linux Mint's repository:
 
 	mkdir xed && cd xed
-	/usr/bin/sh # Change to sh. This will not work on Bash or ZSH.
-	echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
+	printf "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
 	for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
 	
 And convert them with XDEB:
@@ -260,7 +272,6 @@ And convert them with XDEB:
 Finally, you can install them:
 
 	sudo xbps-install --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1
-	# Now you can exit from sh, if you want.
 	
 Xed needs its Glib schemas to be compiled. Otherwise, it will not work.
 
@@ -274,19 +285,15 @@ If you want, delete the Gedit package. The automated script doesn't remove Gedit
 
 <H2>Theming environment</H2>
 
-<H3>Install Oh My ZSH or Oh My Bash (optional)</H3>
-We will install one of these two and apply the Powerlevel9k (They say that Powerlevel10k is better, but I didn't configured it yet) and Agnoster themes, respectively.
+<H3>Custom Bash prompt</H3>
+I made a custom Agnoster-like Bash prompt. With this you don't need Oh My Bash. Add this to your <code>~/.bashrc</code>:
 	
-	#Clone this repo in order to get dotfiles.
-	git clone https://github.com/KF-Art/icewm-personal-tunning/
+	triangle=$'\uE0B0'
+
+	export PS1='\[\e[48;5;237m\] \[\e[0;48;5;237m\]\u\[\e[0;48;5;237m\]@\[\e[0;48;5;237m\]\H\[\e[48;5;237m\] \[\e[0;38;5;237;48;5;29m\]$triangle\[\e[48;5;29m\] \[\e[0;48;5;29m\]\w\[\e[48;5;29m\] \[\e[0;38;5;29;48;5;24m\]$triangle\[\e[48;5;24m\] \[\e[0;48;5;24m\]\!\[\e[48;5;24m\] \[\e[0;38;5;24;48;5;42m\]$triangle\[\e[0;48;5;42m\] \[\e[0;38;5;234;48;5;42m\]\T\[\e[0;48;5;42m\] \[\e[0;38;5;42m\]$triangle \[\e[0m\]'
 	
-	#ZSH
-	sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-	cp icewm-personal-icewm/dotfiles/shellrc/.zshrc ~/
-	
-	#BASH
-	sh -c "$(wget https://raw.github.com/ohmybash/oh-my-bash/master/tools/install.sh -O -)"
-	cp icewm-personal-icewm/dotfiles/shellrc/.bashrc ~/
+
+Edit it as much you want. Also, you can use a prompt generator to modify it, like <a href="https://github.com/Scriptim/bash-prompt-generator">the one made by Scriptim.</code>
 	
 <H3>Install San Francisco Pro and JetBrains Mono fonts</H3>
 We need to clone the font repo, move fonts to <code>/usr/share/fonts/OTF</code>, and update fonts cache and list:
