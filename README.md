@@ -135,9 +135,9 @@ Once created, we'll setup autostart commands and applications (yeah, I used <cod
     compton &
     numlockx &
     
-    #In Void use octoxbps-notifier and in Artix, octopi-notifier.
+    #In Void use octoxbps-notifier and in Artix, /usr/bin/octopi-notifier.
     octoxbps-notifier &
-    # octopi-notifier &
+    # /usr/bin/octopi-notifier &
     
     xscreensaver -nosplash &
     xfce4-panel &
