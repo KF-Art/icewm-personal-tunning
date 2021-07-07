@@ -240,7 +240,7 @@ The installation of Xed via XDEB is quite tedious, so I created a script to auto
 	
 	git clone https://github.com/KF-Art/icewm-personal-tunning/
 	
-Now you can run the installation script. Note that you will need a POSIX compatible shell, like <code>oksh</code> or <code>mksh</code>. In this script we'll use <code>sh</code> to avoid installing extra packages.
+Now you can run the installation script. Note that you will need a fully POSIX compatible shell, like <code>oksh</code> or <code>mksh</code>. In this script we'll use <code>sh</code> to avoid installing extra packages.
 
 	cd icewm-personal-tunning/scripts/
 	chmod u+x xed_void_install.sh
@@ -262,6 +262,7 @@ Once installed, we can proceed to package conversion. Install Xapps dependency f
 Download DEB packages from official Linux Mint's repository:
 
 	mkdir xed && cd xed
+	/bin/sh #Enter to sh. These commands will not work on Bash or ZSH.
 	printf "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
 	for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
 	
@@ -276,6 +277,7 @@ Finally, you can install them:
 Xed needs its Glib schemas to be compiled. Otherwise, it will not work.
 
 	sudo glib-compile-schemas /usr/share/glib-2.0/schemas
+	# At his point you can exit from sh, if you want.
 
 Now Xed should be working properly.
 
