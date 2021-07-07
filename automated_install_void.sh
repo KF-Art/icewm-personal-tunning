@@ -9,15 +9,12 @@ echo "Enjoy!"
 echo ""
 echo "Installing IceWM and initial tools..."
 
-sudo xbps-install -Sy icewm ulauncher network-manager-applet tilix pa-applet brillo nemo qt5ct zsh kvantum unzip zip tar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus zzz-user-hooks
+sudo xbps-install -Sfy icewm ulauncher network-manager-applet tilix pa-applet brillo nemo qt5ct zsh kvantum bsdtar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus zzz-user-hooks
 
 echo "Enabling services..."
 
-#If are already enabled, delete them to avoid conflicts.
-sudo rm /var/service/{bluetoothd,NetworkManager,udevd,dbus,crond}
-
 #Enable services.
-sudo ln -s /etc/sv/{bluetoothd,NetworkManager,udevd,dbus,crond} /var/service
+sudo ln -sf /etc/sv/{bluetoothd,NetworkManager,udevd,dbus,crond} /var/service
 
 mkdir install
 
@@ -38,7 +35,7 @@ echo ""
 cd install
 mkdir .oh-my-zsh
 cd .oh-my-zsh
-tar -xvf ../../resources/oh-my-zsh.tar.gz
+bsdtar -xvf ../../resources/oh-my-zsh.tar.gz
 cd ..
 cp -r .oh-my-zsh ~/
 cp ../dotfiles/shellrc/.zshrc ~/
@@ -48,7 +45,9 @@ echo "Installing XDEB script"
 echo ""
 
 # XDEB installation.
-sudo xbps-install -Sy binutils tar curl xz
+sudo xbps-install -Sfy binutils bsdtar curl 
+sudo ln -s /usr/bin/bsdtar /usr/local/bin/tar
+sudo ln -s /usr/bin/bsdtar /usr/local/bin/xz
 cd install
 git clone https://github.com/toluschr/xdeb
 cd xdeb
@@ -59,7 +58,6 @@ cd ../..
 
 #Variable to simplify code.
 XDEB=~/.local/share/bin/xdeb
-SH=/usr/bin/sh
 
 echo "Installing Xed dependencies..."
 echo ""
@@ -72,19 +70,18 @@ cd install
 mkdir xed 
 cd xed
 
-#These commands needs to be run with a fully compatible POSIX shell, in this case, sh. 
-#BASH and ZSH are not working.
-$SH echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
-$SH for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
+# The echo command is replaced by printf so that the line break is respected and the text does not remain on a single line
+printf "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
+for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
 
 # Convert them with XDEB.
 echo "Converting Xed packages with XDEB..."
 echo ""
-$SH for i in $(cat xed_packages); do $XDEB -Sde $i; done
+for i in $(cat xed_packages); do $XDEB -Sde $i; done
 
 # Install converted packages.
 echo "Installing Xed text editor..."
-$SH sudo xbps-install -y --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1
+sudo xbps-install -y --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1 
 cd ../..
 
 # Compile Glib schemas. Without this, Xed will not work.
@@ -92,7 +89,6 @@ echo ""
 echo "Compiling Glib schemas..."
 echo ""
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas
-
 
 echo "Downloading San Francisco Pro font..."
 echo ""
@@ -108,7 +104,7 @@ echo ""
 mkdir JetBrains-Mono
 cd JetBrains-Mono
 wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.225/JetBrainsMono-2.225.zip
-unzip JetBrainsMono-2.225.zip
+bsdtar -xf JetBrainsMono-2.225.zip
 sudo cp -r fonts /usr/share
 cd ../..
 
@@ -130,9 +126,8 @@ echo ""
 echo "Installing StarLabs-Green GTK theme..."
 echo ""
 cd install
-tar -xvf ../resources/StarLabs-Green.tar.gz
-sudo cp -r StarLabs-Green /usr/share/themes
-sudo cp -r StarLabs-Green-Dark /usr/share/themes
+bsdtar -xvf ../resources/StarLabs-Green.tar.gz
+sudo cp -r StarLabs-* /usr/share/themes
 cd ..
 
 echo "Installing Reversal icon theme..."
@@ -182,7 +177,7 @@ echo ""
 echo ""
 echo "Adding sudo exceptions to use brillo..."
 sudo groupadd brillo
-sudo usermod -aG brillo $USER
+sudo usermod -aG brillo "$USER"
 echo '%brillo ALL=(ALL) NOPASSWD: /usr/bin/brillo /usr/bin/zzz' | sudo EDITOR='tee -a' visudo
 echo ""
 echo "If you will use another user in the future, you need to add them to brillo group."
