@@ -1,0 +1,9 @@
+# These are some variables for the configuration file of your shell.
+QT_QPA_PLATFORMTHEME="qt5ct" #Allows qt5ct to manage Qt settings.
+
+#Tilix's VTE compatibility
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi
+
+export PATH=$PATH:~/.local/share/bin #Add ~/.local/share/bin to PATH in order to run XDEB without its full path.
