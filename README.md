@@ -8,28 +8,28 @@ IceWM is a lightweight window manager used on distributions like AntiX, but by d
 
 Keybindings are processed via <code>sxhkd</code> instead of IceWM built-in one (because I didn't realized that IceWM already has its own script to setup keybindings, but you are free to use it). IceWM's taskbar were replaced by xfce4-panel, but you can also use the IceWM's one. uLauncher is used as app launcher. Materia-Manjaro-Dark-B with some modifications is the selected WM theme. <code>lxappearance</code> and Qt5ct are used to customize desktop themes. 
 
-I used Nemo as the default file manager, and Tilix is the selected terminal emulator (also I recommend QTerminal and <code>xfce4-terminal</code>). Here we'll use <code>xinit</code> to access to X session, but you are free to install any display manager of your choice (like LXDM).
+I used Nemo as the default file manager, and Sakura is the selected terminal emulator (also I recommend QTerminal and <code>xfce4-terminal</code>). Here we'll use <code>xinit</code> to access to X session, but you are free to install any display manager of your choice (like LXDM, or Emptty).
 
-This guide is focused on Void Linux, and in the future, Artix. Feel free to add or remove everything as you need and/or want in your setup. This is just a guide.
+This guide is focused on Void Linux and Artix Linux. Feel free to add or remove everything as you need and/or want in your setup. This is just a guide.
 
 <H1>Special Thanks</H1>
 - <a href="https://github.com/tuxliban">Tuxliban Torvalds</a> for contributing on simplify and optimize enabling services and Xed text editor process. 
 
 <H1>To Do</H1>
 
-- Make MATE Polkit agent to run at startup.
+- Make MATE Polkit agent to work properly.
 - Make Nemo's "Run as root" context menu option to work properly.
 - Make the script detect existing files and folders.
 - Correct some guide content.
-- Make wallpaper to work properly with Nemo Desktop.
+- Make wallpaper to work properly with Nemo Desktop (Artix only).
 - Add XFCE's panel configuration files.
 - Make automated script to detect signature error on package download and then, abort the installation.
 - Add Artix guide and automated script.
-- Create Musl, Lightweight (Void and Artix) and Lightweight-Musl branches.
 - Polish automated installation script.
+- Replace some tools in order to keep the setup lightweight.
 
 <H1>Automated Install (WIP)</H1>
-There is a script that will install and configure everything what I explain in this guide. Note that is still in progress, so it may contain some bugs or errors.
+There is a script that will install and configure everything what I explain in this guide. Note that is still in progress, so it may contain a lot of bugs or errors, so be careful.
 
 Void Linux:
 	
@@ -53,7 +53,7 @@ After that, you can start your X session with <code>startx</code>.
 Here, you will learn how to configure IceWM and tune it. Also, this is a explanation of the automated script's functioning.
 
 <H1>Installing Yay and enabling Arch Linux support (Artix Only)</H1>
-Into Artix, you will need to enable Arch Linux support and install Yay or any AUR helper. 
+Into Artix, you will need to enable Arch Linux support and install Yay or any AUR helper. The last step will add extra, community and multilib Arch's repositories. If Artix repositories get more populated, this will not be necessary in the future.
 	
     #Installing Yay
     pacman -S base-devel git
@@ -73,15 +73,15 @@ At this point, I'm assuming that you already have your base system and Xorg inst
 
 Void Linux:
 
-    sudo xbps-install -S icewm ulauncher network-manager-applet tilix pa-applet brillo nemo qt5ct zsh kvantum unzip zip tar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus zzz-user-hooks
+    sudo xbps-install -S icewm ulauncher network-manager-applet sakura pa-applet brillo nemo qt5ct kvantum unzip zip tar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx picom xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus
     
 Artix:
 
     #Repositories packages.
-    sudo pacman -S --needed icewm network-manager-applet tilix nemo qt5ct zsh kvantum-qt5 unzip zip tar sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octopi octopi-notifier-frameworks notification-daemon playerctl numlockx xscreensaver xorg-setxkbmap xautolock blueman networkmanager pulseaudio firefox pavucontrol git wget eudev cronie cronie-runit xorg-xinit bluez dbus xed
+    sudo pacman -S --needed icewm network-manager-applet sakura nemo qt5ct kvantum-qt5 unzip zip tar sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octopi octopi-notifier-frameworks notification-daemon playerctl numlockx xscreensaver xorg-setxkbmap xautolock blueman networkmanager pulseaudio firefox pavucontrol git wget eudev cronie cronie-runit xorg-xinit bluez dbus xed picom
     
     #AUR packages.
-    yay -Sa --needed ulauncher pa-applet-git timeshift-bin betterlockscreen compton-old-git
+    yay -Sa --needed ulauncher pa-applet-git timeshift-bin betterlockscreen
     
 <H2>Enabling services</H2>
 Once installed, we have to enable services in order to have an X session, connectivity and Cron management. 
@@ -98,20 +98,15 @@ Artix:
 From this point you can start your X session with <code>startx</code>.
 
 <H2>Add environment variables</H2>
-In order to make work some applications like Tilix and Qt5ct, we'll need to add some environment variables to your shell configuration file:
+In order to make work XDEB and Qt5ct, you'll need to add some environment variables to your shell configuration file:
 
 	QT_QPA_PLATFORMTHEME="qt5ct" #Allows qt5ct to manage Qt settings.
-
-	#Tilix's VTE compatibility
-	if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        	source /etc/profile.d/vte.sh
-	fi
 
 	#We'll use this when installing Xed via XDEB.
 	export PATH=$PATH:~/.local/share/bin
 	
 <H2>Install Brillo (Artix only)</H2>
-For some reason, the AUR package gives an error when compiling. So it's necessary to compile it manually.
+For some reason, the AUR package gives an error when compiling. So it's necessary to compile it manually. You can replace it by <code>brightnessctl</code>, for example.
 
 	wget https://gitlab.com/cameronnemo/brillo/-/archive/v1.4.9/brillo-v1.4.9.tar.gz
 	tar -xvf brillo-v1.4.9.tar.gz
@@ -132,7 +127,7 @@ Once created, we'll setup autostart commands and applications (yeah, I used <cod
     sxhkd &
     pa-applet &
     nm-applet &
-    compton &
+    picom &
     numlockx &
     
     #In Void use octoxbps-notifier and in Artix, /usr/bin/octopi-notifier.
@@ -177,7 +172,7 @@ Now we can configure our keybindings:
 
     #Terminal emulator
     ctrl + alt + t
-        tilix %u
+        sakura %u
 
     #File manager
     ctrl + alt + e
@@ -222,18 +217,17 @@ If you don't want to use XFCE's panel, set <code>ShowTaskBar</code> on <code>1</
 
 Now add this line at the end of the file (change <code>yourusername</code> for your user's name):
 	
-	yourusername ALL= NOPASSWD: /usr/bin/brillo
+	yourusername ALL= NOPASSWD: /usr/bin/brillo /usr/bin/zzz
 	
-Alternatively, you can use the automated script method. Create a group and make an exception to <code>sudoers</code>.
+Alternatively, you can use the automated script method.
 
-	sudo groupadd brillo
-	sudo usermod -aG brillo $USER
-	echo '%brillo ALL=(ALL) NOPASSWD: /usr/bin/brillo /usr/bin/zzz' | sudo 	EDITOR='tee -a' visudo
+	echo "$USER $(cat /etc/hostname)= NOPASSWD: /usr/bin/brillo /usr/bin/zzz" | sudo EDITOR='tee -a' visudo
+	
 	
 After that, logout. Related keybindings and startup commands now should work.
 
 <H2>Installing Xed text editor (Void only)</H2>
-Xed is my favorite GTK text editor, so I included it into this build. I think that is strange that the Cinnamon's text editor Xed is not in the repositories of Void, because Cinnamon is one of the officially supported desktop environments. 
+Xed is my favorite GTK text editor, so I included it into this build. I think that is strange that the Cinnamon's default text editor is not in the repositories of Void, because Cinnamon is one of the officially supported desktop environments. Into Artix this is not necessary, 'cause it's on the repositories.
 
 <H3>Automated install (recommended)</H3>
 The installation of Xed via XDEB is quite tedious, so I created a script to automate the task. First, clone this repo (if not done already):
@@ -277,7 +271,7 @@ Finally, you can install them:
 Xed needs its Glib schemas to be compiled. Otherwise, it will not work.
 
 	sudo glib-compile-schemas /usr/share/glib-2.0/schemas
-	# At his point you can exit from sh, if you want.
+	# At this point you can exit from sh, if you want.
 
 Now Xed should be working properly.
 
@@ -364,7 +358,7 @@ Now apply the icon theme at <code>lxappearance</code> and Qt5ct.
 <H3>Prepare Betterlockscreen</H3>
 Betterlockscreen needs your background to be cached before you can use it:
 
-	betterlockscreen -u -blur /path/to/your/wallpaper.png
+	betterlockscreen -u /path/to/your/wallpaper.png
 
 <H3>Customize XFCE panel</H3>
 
