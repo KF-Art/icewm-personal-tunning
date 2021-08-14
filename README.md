@@ -21,6 +21,7 @@ Personal customization of IceWM on mainly, Void Linux and Artix Runit. Note that
   			- <a href="https://github.com/KF-Art/icewm-personal-tunning/#automated-install-recommended">Automated install (recommended)</a>
   			- <a href="https://github.com/KF-Art/icewm-personal-tunning/#diy-method-1">DIY Method</a>
   		- <a href="https://github.com/KF-Art/icewm-personal-tunning/#theming-environment">Theming environment</a>
+  			- <a href="https://github.com/KF-Art/icewm-personal-tunning/#customize-rofi">Customize Rofi</a>
   			- <a href="https://github.com/KF-Art/icewm-personal-tunning/#custom-bash-prompt">Custom Bash Prompt</a>
   			- <a href="https://github.com/KF-Art/icewm-personal-tunning/#install-san-francisco-pro-and-jetbrains-mono-fonts">Install San Francisco Pro and JetBrains Mono fonts</a>
   			- <a href="https://github.com/KF-Art/icewm-personal-tunning/#install-and-customize-materia-manjaro-dark-icewm-theme">Install and customize Materia Manjaro Dark IceWM theme</a>
@@ -303,6 +304,17 @@ Now Xed should be working properly. If you want, delete the Gedit package. The a
 	sudo xbps-remove -R gedit
 
 <H2>Theming environment</H2>
+
+<H3>Customize Rofi</H3>
+
+We will use a theme based on Aditya Shakya's KDE KRunner one.
+
+	# Clone this repo if not done yet.
+	git -C $HOME/github clone https://github.com/KF-Art/icewm-personal-tunning/
+	
+	# Copy theme and launcher.
+	mkdir $HOME/.config/rofi
+	cp $HOME/github/icewm-personal-tunning/dotfiles/rofi/* $HOME/.config/rofi/
 
 <H3>Custom Bash prompt</H3>
 I made a custom Agnoster-like Bash prompt. With this you don't need Oh My Bash. Add this to your <code>~/.bashrc</code>:
