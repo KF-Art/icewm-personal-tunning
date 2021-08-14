@@ -12,6 +12,10 @@ I used Nemo as the default file manager, and Sakura is the selected terminal emu
 
 This guide is focused on Void Linux and Artix Linux. Feel free to add or remove everything as you need and/or want in your setup. This is just a guide.
 
+To start, we will create a directory in which the cloned github repository will be saved
+
+	mkdir "$HOME/github"
+
 <H1>Special Thanks</H1>
 - <a href="https://github.com/tuxliban">Tuxliban Torvalds</a> for contributing on simplify and optimize enabling services and Xed text editor process. 
 
@@ -34,7 +38,7 @@ There is a script that will install and configure everything what I explain in t
 Void Linux:
 	
 	sudo xbps-install -S git
-	git clone https://github.com/KF-Art/icewm-personal-tunning
+	git -C "$HOME/github" clone https://github.com/KF-Art/icewm-personal-tunning
 	cd icewm-personal-tunning
 	chmod u+x automated_install_void.sh
 	./automated_install_void.sh
@@ -42,7 +46,7 @@ Void Linux:
 Artix:
 
 	sudo pacman -S git
-	git clone https://github.com/KF-Art/icewm-personal-tunning
+	git -C "$HOME/github" clone https://github.com/KF-Art/icewm-personal-tunning
 	cd icewm-personal-tunning
 	chmod u+x automated_install_artix.sh
 	./automated_install_artix.sh
@@ -57,13 +61,13 @@ Into Artix, you will need to enable Arch Linux support and install Yay or any AU
 	
     #Installing Yay
     pacman -S base-devel git
-    git clone https://aur.archlinux.org/yay-bin.git
+    git -C "$HOME/github" clone https://aur.archlinux.org/yay-bin.git
     cd yay-bin
     makepkg -si
 
     #Enabling Arch Linux support
     pacman -S artix-archlinux-support
-    git clone https://github.com/KF-Art/icewm-personal-tunning/ && cd icewm-personal-tunning
+    git -C "$HOME/github" clone https://github.com/KF-Art/icewm-personal-tunning/ && cd icewm-personal-tunning
     
     # Add Arch Linux repos to pacman.conf. Hope that in the future this is not necessary.
     cat resources/pacman-arch-support.conf | sudo tee -a /etc/pacman.conf
@@ -103,7 +107,7 @@ In order to make work XDEB and Qt5ct, you'll need to add some environment variab
 	QT_QPA_PLATFORMTHEME="qt5ct" #Allows qt5ct to manage Qt settings.
 
 	#We'll use this when installing Xed via XDEB.
-	export PATH=$PATH:~/.local/share/bin
+	export PATH="$PATH:$HOME/.local/share/bin"
 	
 <H2>Install Brillo (Artix only)</H2>
 For some reason, the AUR package gives an error when compiling. So it's necessary to compile it manually. You can replace it by <code>brightnessctl</code>, for example.
@@ -117,8 +121,8 @@ For some reason, the AUR package gives an error when compiling. So it's necessar
 <H2>Configuring Autostart</H2>
 For some reason, IceWM ignores <code>~/.config/autostart</code> and <code>~/.config/autostart-scripts</code> configurations (at least on Void Linux). Fortunately, IceWM has its own built-in startup manager. We'll create a new file called <code>startup</code> inside <code>~/.icewm</code>.
 
-    touch ~/.icewm/startup
-    chmod +x ~/.icewm/startup
+    touch "$HOME/.icewm/startup"
+    chmod u+x "$HOME/.icewm/startup"
    
 Once created, we'll setup autostart commands and applications (yeah, I used <code>setxkbmap</code> to set keyboard map, but I recommend you to setup it with Xorg directly):
 
@@ -150,7 +154,7 @@ Feel free to increase or decrease the <code>-killtime</code> (10 is the minimum)
 <H2>Configuring Keybindings</H2>
 As I said before, I used <code>sxhkd</code> to manage keybindings, but this should work similar on <code>~/.icewm/keys</code> (you need to create it and make it executable). We'll create a new file called <code>sxhkdrc</code>.
 
-    touch ~/.config/sxhkd/sxhkdrc
+    touch "$HOME/.config/sxhkd/sxhkdrc"
     
 Now we can configure our keybindings:
 
@@ -195,7 +199,7 @@ Now we can configure our keybindings:
 <H2>Configuring IceWM Preferences</H2>
 Again, we need to create a configuration file:
     
-    touch ~/.icewm/preferences
+    touch "$HOME/.icewm/preferences"
     
 And now setup the preferences:
 
@@ -232,7 +236,7 @@ Xed is my favorite GTK text editor, so I included it into this build. I think th
 <H3>Automated install (recommended)</H3>
 The installation of Xed via XDEB is quite tedious, so I created a script to automate the task. First, clone this repo (if not done already):
 	
-	git clone https://github.com/KF-Art/icewm-personal-tunning/
+	git -C "$HOME/github" clone https://github.com/KF-Art/icewm-personal-tunning/
 	
 Now you can run the installation script. Note that you will need a fully POSIX compatible shell, like <code>oksh</code> or <code>mksh</code>. In this script we'll use <code>sh</code> to avoid installing extra packages.
 
@@ -244,7 +248,7 @@ Now you can run the installation script. Note that you will need a fully POSIX c
 We'll take the official's Linux Mint package, convert it to XBPS and install it. But first, we need to install XDEB script (into automated script, the selected path is <code>~/.local/share/bin</code> to avoid errors.
 
 	sudo xbps-install -S binutils tar curl xz
-	git clone https://github.com/toluschr/xdeb
+	git -C "$HOME/github" clone https://github.com/toluschr/xdeb
 	cd xdeb
 	chmod u+x xdeb
 	sudo cp xdeb /usr/local/bin
@@ -255,18 +259,19 @@ Once installed, we can proceed to package conversion. Install Xapps dependency f
 	
 Download DEB packages from official Linux Mint's repository:
 
-	mkdir xed && cd xed
-	/bin/sh #Enter to sh. These commands will not work on Bash or ZSH.
-	printf "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb" >> xed_packages
-	for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done
+	mkdir /tmp/xed && cd /tmp/xed
+	# These commands will not work on Bash or ZSH.
+	# So the dash shell will be used temporarily
+	dash -c 'echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb"' >> xed_packages
+	dash -c 'for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done'
 	
 And convert them with XDEB:
 
-	for i in $(cat xed_packages); do xdeb -Sde $i; done
+	dash -c 'for i in $(cat xed_packages); do xdeb -Sde $i; done'
 	
 Finally, you can install them:
 
-	sudo xbps-install --repository binpkgs xed-2.8.4_1 xed-common-2.8.4_1 xed-doc-2.8.4_1
+	sudo xbps-install -R binpkgs xed xed-common xed-doc
 	
 Xed needs its Glib schemas to be compiled. Otherwise, it will not work.
 
@@ -295,14 +300,14 @@ Edit it as much you want. Also, you can use a prompt generator to modify it, lik
 We need to clone the font repo, move fonts to <code>/usr/share/fonts/OTF</code>, and update fonts cache and list:
 
 	#San Francisco Fonts
-	git clone https://github.com/sahibjotsaggu/San-Francisco-Pro-Fonts
-	cd San-Francisco-Pro-Fonts
+	git -C "$HOME/github" clone https://github.com/sahibjotsaggu/San-Francisco-Pro-Fonts
+	cd "$HOME/github/San-Francisco-Pro-Fonts"
 	sudo mkdir /usr/share/fonts/OTF
 	sudo mv *.otf /usr/share/fonts/OTF
 	cd ..
 	
 	#JetBrains Mono
-	mkdir JetBrains-Mono && cd JetBrains-Mono
+	mkdir /tmp/JetBrains-Mono && cd /tmp/JetBrains-Mono
 	wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.225/JetBrainsMono-2.225.zip
 	unzip JetBrainsMono-2.225.zip
 	sudo cp fonts /usr/share
@@ -340,17 +345,17 @@ After that, open Qt5ct, set Kvantum style and configure fonts as you want (I rec
 Download your preferred GTK and Kvantum themes and copy them to <code>/usr/share/themes</code> and <code>~/.config/Kvantum/</code>, respectively. In this setup, I will use StarLabs-Green (GTK) and KvFlat-Emerald (Kvantum), but you can use any theme you want. 
 
 	#KvFlat-Emerald installation
-	git clone https://github.com/KF-Art/KvFlat-Emerald/
-	cd KvFlat-Emerald
-	cp KvFlat-Emerald-Solid ~/.config/Kvantum
+	git -C "$HOME/github" clone https://github.com/KF-Art/KvFlat-Emerald/
+	cd "$HOME/github/KvFlat-Emerald"
+	cp KvFlat-Emerald-Solid "$HOME/.config/Kvantum"
 
 Now open <code>lxappearance</code> & Kvantum, set themes and configure fonts (<code>lxappearance</code>).
 
 <H3>Install Reversal icon theme</H3>
 You can install any icon theme that you want, as long it includes a <code>void-distributor-logo</code> icon. In this case, I will use Reversal icon theme:
 	
-	git clone https://github.com/yeyushengfan258/Reversal-icon-theme
-	cd Reversal-icon-theme
+	git -C "$HOME/github" clone https://github.com/yeyushengfan258/Reversal-icon-theme
+	cd "$HOME/github/Reversal-icon-theme"
 	sudo ./install.sh -a
 	
 Now apply the icon theme at <code>lxappearance</code> and Qt5ct.
