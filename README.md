@@ -1,14 +1,42 @@
 # IceWM Personal Tunning (WIP)
 Personal customization of IceWM on mainly, Void Linux and Artix Runit. Note that other inits are not supported in this guide.
 
+<H1>Index</H1>
+
+ - <a href="">Overview</a>
+ - <a href="https://github.com/KF-Art/icewm-personal-tunning/#special-thanks">Special Thanks</a>
+ - <a href="https://github.com/KF-Art/icewm-personal-tunning/#to-do">To Do</a>
+ - <a href="https://github.com/KF-Art/icewm-personal-tunning/#automated-install-wip">Automated Install (WIP)</a>
+ - <a href="https://github.com/KF-Art/icewm-personal-tunning/#diy-method">DIY Method</a>
+ 	- <a href="https://github.com/KF-Art/icewm-personal-tunning/#installing-yay-and-enabling-arch-linux-support-artix-only">Installing Yay and Enabling Arch Linux support (Artix Only)</a>
+ 	- <a href="https://github.com/KF-Art/icewm-personal-tunning/#installing-icewm-and-base-packages">Installing IceWM and base packages</a>
+ 		- <a href="https://github.com/KF-Art/icewm-personal-tunning/#enabling-services">Enabling services</a>
+ 		- <a href="https://github.com/KF-Art/icewm-personal-tunning/#add-environment-variables">Add environment variables</a>
+ 		- <a href="https://github.com/KF-Art/icewm-personal-tunning/#install-brillo-artix-only">Install Brillo (Artix only)</a>
+  		- <a href="https://github.com/KF-Art/icewm-personal-tunning/#configuring-autostart">Configuring autostart</a>
+  		- <a href="https://github.com/KF-Art/icewm-personal-tunning/#configuring-keybindings">Configuring Keybindings</a>
+  		- <a href="https://github.com/KF-Art/icewm-personal-tunning/#configuring-icewm-preferences">Configuring IceWM Preferences</a>
+  		- <a href="https://github.com/KF-Art/icewm-personal-tunning/#add-sudo-exceptions">Add sudo exceptions</a>
+  		- <a href="https://github.com/KF-Art/icewm-personal-tunning/#installing-xed-text-editor-void-only">Installing Xed text editor (Void only)</a>
+  			- <a href="https://github.com/KF-Art/icewm-personal-tunning/#automated-install-recommended">Automated install (recommended)</a>
+  			- <a href="https://github.com/KF-Art/icewm-personal-tunning/#diy-method-1">DIY Method</a>
+  		- <a href="https://github.com/KF-Art/icewm-personal-tunning/#theming-environment">Theming environment</a>
+  			- <a href="https://github.com/KF-Art/icewm-personal-tunning/#custom-bash-prompt">Custom Bash Prompt</a>
+  			- <a href="https://github.com/KF-Art/icewm-personal-tunning/#install-san-francisco-pro-and-jetbrains-mono-fonts">Install San Francisco Pro and JetBrains Mono fonts</a>
+  			- <a href="https://github.com/KF-Art/icewm-personal-tunning/#install-and-customize-materia-manjaro-dark-icewm-theme">Install and customize Materia Manjaro Dark IceWM theme</a>
+  			- <a href="https://github.com/KF-Art/icewm-personal-tunning/#configure-qt5ct-and-set-GTK--kvantum-themes">Configure Qt5ct and set GTK & Kvantum themes</a>
+  			- <a href="https://github.com/KF-Art/icewm-personal-tunning/#install-reversal-icon-theme">Install Reversal icon theme</a>
+  			- <a href="https://github.com/KF-Art/icewm-personal-tunning/#prepare-betterlockscreen">Prepare Betterlockscreen</a>
+  			- <a href="https://github.com/KF-Art/icewm-personal-tunning/#customize-xfce-panel">Customize XFCE panel</a>
+
 <H1>Overview</H1>
 
 IceWM is a lightweight window manager used on distributions like AntiX, but by default its very... W95-like. So I decided to customize at the maximum that I can. This is the result. 
 
 
-Keybindings are processed via <code>sxhkd</code> instead of IceWM built-in one (because I didn't realized that IceWM already has its own script to setup keybindings, but you are free to use it). IceWM's taskbar were replaced by xfce4-panel, but you can also use the IceWM's one. uLauncher is used as app launcher. Materia-Manjaro-Dark-B with some modifications is the selected WM theme. <code>lxappearance</code> and Qt5ct are used to customize desktop themes. 
+Keybindings are processed via <code>sxhkd</code> instead of IceWM built-in one (because I didn't realized that IceWM already has its own script to setup keybindings, but you are free to use it). IceWM's taskbar were replaced by xfce4-panel, but you can also use the IceWM's one. Rofi is used as app launcher. Materia-Manjaro-Dark-B with some modifications is the selected WM theme. <code>lxappearance</code> and Qt5ct are used to customize desktop themes. 
 
-I used Nemo as the default file manager, and Sakura is the selected terminal emulator (also I recommend QTerminal and <code>xfce4-terminal</code>). Here we'll use <code>xinit</code> to access to X session, but you are free to install any display manager of your choice (like LXDM, or Emptty).
+I used Nemo as the default file manager, and Sakura is the selected terminal emulator (also I recommend QTerminal and <code>xfce4-terminal</code>). Here we'll use LXDM as a Display Manager.
 
 This guide is focused on Void Linux and Artix Linux. Feel free to add or remove everything as you need and/or want in your setup. This is just a guide.
 
@@ -75,12 +103,12 @@ At this point, I'm assuming that you already have your base system and Xorg inst
 
 Void Linux:
 
-    sudo xbps-install -S icewm rofi network-manager-applet sakura pa-applet brillo nemo qt5ct kvantum unzip zip tar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx picom xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie bluez dbus lightdm
+    sudo xbps-install -S icewm rofi network-manager-applet sakura pa-applet brillo nemo qt5ct kvantum unzip zip bsdtar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx picom xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie bluez dbus lxdm
     
 Artix:
 
     #Repositories packages.
-    sudo pacman -S --needed icewm rofi network-manager-applet sakura nemo qt5ct kvantum-qt5 unzip zip tar sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octopi octopi-notifier-frameworks notification-daemon playerctl numlockx xscreensaver xorg-setxkbmap xautolock blueman networkmanager pulseaudio firefox pavucontrol git wget eudev cronie cronie-runit bluez dbus xed picom lightdm lightdm-runit
+    sudo pacman -S --needed icewm rofi network-manager-applet sakura nemo qt5ct kvantum-qt5 unzip zip bsdtar sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octopi octopi-notifier-frameworks notification-daemon playerctl numlockx xscreensaver xorg-setxkbmap xautolock blueman networkmanager pulseaudio firefox pavucontrol git wget eudev cronie cronie-runit bluez dbus xed picom lxdm lxdm-runit
     
     #AUR packages.
     yay -Sa --needed pa-applet-git timeshift-bin betterlockscreen
