@@ -12,23 +12,17 @@ I used Nemo as the default file manager, and Sakura is the selected terminal emu
 
 This guide is focused on Void Linux and Artix Linux. Feel free to add or remove everything as you need and/or want in your setup. This is just a guide.
 
-To start, we will create a directory in which the cloned github repository will be saved
-
-	mkdir "$HOME/github"
-
 <H1>Special Thanks</H1>
-- <a href="https://github.com/tuxliban">Tuxliban Torvalds</a> for contributing on simplify and optimize enabling services and Xed text editor process. 
+- <a href="https://github.com/tuxliban">Tuxliban Torvalds</a> for contributing on simplify and optimize automated installation script, enabling services, Xed text editor installation process, and this guide.
 
 <H1>To Do</H1>
 
-- Make MATE Polkit agent to work properly.
-- Make Nemo's "Run as root" context menu option to work properly.
-- Make the script detect existing files and folders.
+- Add a Display Manager in order to get Polkit working correctly.
 - Correct some guide content.
+- Replace XFCE tools.
 - Make wallpaper to work properly with Nemo Desktop (Artix only).
-- Add XFCE's panel configuration files.
 - Make automated script to detect signature error on package download and then, abort the installation.
-- Add Artix guide and automated script.
+- Fix Artix script (currently it's broken).
 - Polish automated installation script.
 - Replace some tools in order to keep the setup lightweight.
 
@@ -43,7 +37,7 @@ Void Linux:
 	chmod u+x automated_install_void.sh
 	./automated_install_void.sh
 	
-Artix:
+Artix (currently broken, use at your own risk):
 
 	sudo pacman -S git
 	git -C "$HOME/github" clone https://github.com/KF-Art/icewm-personal-tunning
@@ -55,6 +49,10 @@ After that, you can start your X session with <code>startx</code>.
 
 <H1>DIY Method</H1>
 Here, you will learn how to configure IceWM and tune it. Also, this is a explanation of the automated script's functioning.
+
+To start, we will create a directory in which the cloned GitHub repositories will be saved.
+
+	mkdir "$HOME/github"
 
 <H1>Installing Yay and enabling Arch Linux support (Artix Only)</H1>
 Into Artix, you will need to enable Arch Linux support and install Yay or any AUR helper. The last step will add extra, community and multilib Arch's repositories. If Artix repositories get more populated, this will not be necessary in the future.
@@ -77,15 +75,15 @@ At this point, I'm assuming that you already have your base system and Xorg inst
 
 Void Linux:
 
-    sudo xbps-install -S icewm ulauncher network-manager-applet sakura pa-applet brillo nemo qt5ct kvantum unzip zip tar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx picom xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus
+    sudo xbps-install -S icewm rofi network-manager-applet sakura pa-applet brillo nemo qt5ct kvantum unzip zip tar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl numlockx picom xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox pavucontrol git wget gedit eudev timeshift cronie bluez dbus lightdm
     
 Artix:
 
     #Repositories packages.
-    sudo pacman -S --needed icewm network-manager-applet sakura nemo qt5ct kvantum-qt5 unzip zip tar sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octopi octopi-notifier-frameworks notification-daemon playerctl numlockx xscreensaver xorg-setxkbmap xautolock blueman networkmanager pulseaudio firefox pavucontrol git wget eudev cronie cronie-runit xorg-xinit bluez dbus xed picom
+    sudo pacman -S --needed icewm rofi network-manager-applet sakura nemo qt5ct kvantum-qt5 unzip zip tar sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin xfce4-power-manager xfce4-clipman-plugin mate-polkit octopi octopi-notifier-frameworks notification-daemon playerctl numlockx xscreensaver xorg-setxkbmap xautolock blueman networkmanager pulseaudio firefox pavucontrol git wget eudev cronie cronie-runit bluez dbus xed picom lightdm lightdm-runit
     
     #AUR packages.
-    yay -Sa --needed ulauncher pa-applet-git timeshift-bin betterlockscreen
+    yay -Sa --needed pa-applet-git timeshift-bin betterlockscreen
     
 <H2>Enabling services</H2>
 Once installed, we have to enable services in order to have an X session, connectivity and Cron management. 
@@ -93,11 +91,11 @@ Once installed, we have to enable services in order to have an X session, connec
 
 Void Linux:
 
-	sudo ln -s /etc/sv/{bluetoothd,NetworkManager,udevd,dbus,crond} /var/service
+	sudo ln -sf /etc/sv/{bluetoothd,NetworkManager,udevd,dbus,crond} /var/service
 	
 Artix: 
 
-	sudo ln -s /etc/runit/sv/{bluetoothd,NetworkManager,udevd,dbus,cronie} /run/runit/service/
+	sudo ln -sf /etc/runit/sv/{bluetoothd,NetworkManager,udevd,dbus,cronie} /run/runit/service/
     
 From this point you can start your X session with <code>startx</code>.
 
@@ -110,7 +108,7 @@ In order to make work XDEB and Qt5ct, you'll need to add some environment variab
 	export PATH="$PATH:$HOME/.local/share/bin"
 	
 <H2>Install Brillo (Artix only)</H2>
-For some reason, the AUR package gives an error when compiling. So it's necessary to compile it manually. You can replace it by <code>brightnessctl</code>, for example.
+For some reason, the AUR package gives an error when compiling. So it's necessary to compile it manually. Also, you can replace it by <code>brightnessctl</code>, for example.
 
 	wget https://gitlab.com/cameronnemo/brillo/-/archive/v1.4.9/brillo-v1.4.9.tar.gz
 	tar -xvf brillo-v1.4.9.tar.gz
@@ -134,17 +132,16 @@ Once created, we'll setup autostart commands and applications (yeah, I used <cod
     picom &
     numlockx &
     
-    #In Void use octoxbps-notifier and in Artix, /usr/bin/octopi-notifier.
+    # In Void use octoxbps-notifier and in Artix, /usr/bin/octopi-notifier.
     octoxbps-notifier &
     # /usr/bin/octopi-notifier &
     
     xscreensaver -nosplash &
     xfce4-panel &
     nemo-desktop &
-    ulauncher &
     setxkbmap latam
     /usr/libexec/notification-daemon &
-    xautolock -detectsleep -time 5 -locker "betterlockscreen -l blur -w /path/to/your/wallpaper.png" -killtime 10 -killer "zzz -z"
+    xautolock -detectsleep -time 5 -locker "betterlockscreen -l blur -w /path/to/your/wallpaper.png" -killtime 10 -killer "loginctl suspend"
     blueman-applet &!
     
 Change <code>/path/to/your/wallpaper.png</code> by the path of your desired background for lockscreen. In this build, a wallpaper is included into resources folder.
@@ -208,27 +205,24 @@ And now setup the preferences:
     RebootCommand="loginctl reboot"
     ShutdownCommand="loginctl poweroff"
     TerminalCommand=tilix
-    SuspendCommand="sudo zzz -z"
-
-<code>zzz</code> also needs elevated privileges to be able to change the power status, and we'll add an exception to <code>sudoers</code> for it. There's a package called <code>zzz-user-hooks</code>, but I didn't achieve to make it work.  
+    SuspendCommand="loginctl suspend"
 
 If you don't want to use XFCE's panel, set <code>ShowTaskBar</code> on <code>1</code>, and remove it from autostart.
 
 <H2>Add sudo exceptions</H2>
-<code>brillo</code>requires root privileges in order to edit the brightness and power status. To be able to use the related keybindings and startup commands, we have to add one exception to <code>sudoers</code> file. 
+<code>brillo</code> requires root privileges in order to edit the brightness and power status. To be able to use the related keybindings and startup commands, we have to add one exception to <code>sudoers</code> file. 
 
 	sudo visudo
 
 Now add this line at the end of the file (change <code>yourusername</code> for your user's name):
 	
-	yourusername ALL= NOPASSWD: /usr/bin/brillo /usr/bin/zzz
+	yourusername ALL= NOPASSWD: /usr/bin/brillo
 	
 Alternatively, you can use the automated script method.
 
-	echo "$USER $(cat /etc/hostname)= NOPASSWD: /usr/bin/brillo /usr/bin/zzz" | sudo EDITOR='tee -a' visudo
+	echo "$USER $(cat /etc/hostname)= NOPASSWD: /usr/bin/brillo" | sudo EDITOR='tee -a' visudo
 	
-	
-After that, logout. Related keybindings and startup commands now should work.
+After that, logout. Related keybindings now should work.
 
 <H2>Installing Xed text editor (Void only)</H2>
 Xed is my favorite GTK text editor, so I included it into this build. I think that is strange that the Cinnamon's default text editor is not in the repositories of Void, because Cinnamon is one of the officially supported desktop environments. Into Artix this is not necessary, 'cause it's on the repositories.
@@ -238,7 +232,7 @@ The installation of Xed via XDEB is quite tedious, so I created a script to auto
 	
 	git -C "$HOME/github" clone https://github.com/KF-Art/icewm-personal-tunning/
 	
-Now you can run the installation script. Note that you will need a fully POSIX compatible shell, like <code>oksh</code> or <code>mksh</code>. In this script we'll use <code>sh</code> to avoid installing extra packages.
+Now you can run the installation script. Note that you will need a fully POSIX compatible shell, like <code>oksh</code> or <code>mksh</code>. In this script we'll use <code>dash</code> to avoid installing extra packages.
 
 	cd icewm-personal-tunning/scripts/
 	chmod u+x xed_void_install.sh
@@ -249,19 +243,18 @@ We'll take the official's Linux Mint package, convert it to XBPS and install it.
 
 	sudo xbps-install -S binutils tar curl xz
 	git -C "$HOME/github" clone https://github.com/toluschr/xdeb
-	cd xdeb
-	chmod u+x xdeb
-	sudo cp xdeb /usr/local/bin
+	chmod u+x $HOME/github/xdeb/xdeb
+	sudo cp $HOME/github/xdeb/xdeb /usr/local/bin
 	
-Once installed, we can proceed to package conversion. Install Xapps dependency from Void Linux's repository:
+Once installed, we can proceed to package conversion. Install XApps dependency from Void Linux's repository:
 
 	sudo xbps-install -S xapps
 	
 Download DEB packages from official Linux Mint's repository:
 
 	mkdir /tmp/xed && cd /tmp/xed
-	# These commands will not work on Bash or ZSH.
-	# So the dash shell will be used temporarily
+
+	# These commands will not work on Bash or ZSH, So the dash shell will be used temporarily.
 	dash -c 'echo "xed_2.8.4+ulyssa_amd64.deb\nxed-common_2.8.4+ulyssa_all.deb\nxed-doc_2.8.4+ulyssa_all.deb"' >> xed_packages
 	dash -c 'for i in $(cat xed_packages); do curl -O http://packages.linuxmint.com/pool/backport/x/xed/$i; done'
 	
@@ -276,11 +269,8 @@ Finally, you can install them:
 Xed needs its Glib schemas to be compiled. Otherwise, it will not work.
 
 	sudo glib-compile-schemas /usr/share/glib-2.0/schemas
-	# At this point you can exit from sh, if you want.
 
-Now Xed should be working properly.
-
-If you want, delete the Gedit package. The automated script doesn't remove Gedit, in case Xed fails in the future.
+Now Xed should be working properly. If you want, delete the Gedit package. The automated script doesn't remove Gedit, in case Xed fails in the future.
 
 	sudo xbps-remove -R gedit
 
@@ -301,15 +291,13 @@ We need to clone the font repo, move fonts to <code>/usr/share/fonts/OTF</code>,
 
 	#San Francisco Fonts
 	git -C "$HOME/github" clone https://github.com/sahibjotsaggu/San-Francisco-Pro-Fonts
-	cd "$HOME/github/San-Francisco-Pro-Fonts"
 	sudo mkdir /usr/share/fonts/OTF
-	sudo mv *.otf /usr/share/fonts/OTF
-	cd ..
+	sudo mv $HOME/github/San-Francisco-Pro-Fonts/*.otf /usr/share/fonts/OTF
 	
 	#JetBrains Mono
 	mkdir /tmp/JetBrains-Mono && cd /tmp/JetBrains-Mono
-	wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.225/JetBrainsMono-2.225.zip
-	unzip JetBrainsMono-2.225.zip
+	wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip
+	unzip JetBrainsMono-2.242.zip
 	sudo cp fonts /usr/share
 	
 	#Update font cache and list
@@ -339,15 +327,14 @@ In order to use Qt5ct and manage Qt settings, it's necesary to add a environment
 
 	QT_QPA_PLATFORMTHEME="qt5ct"
 	
-Alternatively, you can set this variable into <code>/etc/environment</code> to set it at system level. Logout to apply the changes. 
+Alternatively, you can set this variable into <code>/etc/environment</code> to set it at system level. Logout to apply the changes (restart if you're setting it at system level). 
 After that, open Qt5ct, set Kvantum style and configure fonts as you want (I recommend SF Pro Display Light 10).
 
 Download your preferred GTK and Kvantum themes and copy them to <code>/usr/share/themes</code> and <code>~/.config/Kvantum/</code>, respectively. In this setup, I will use StarLabs-Green (GTK) and KvFlat-Emerald (Kvantum), but you can use any theme you want. 
 
 	#KvFlat-Emerald installation
 	git -C "$HOME/github" clone https://github.com/KF-Art/KvFlat-Emerald/
-	cd "$HOME/github/KvFlat-Emerald"
-	cp KvFlat-Emerald-Solid "$HOME/.config/Kvantum"
+	cp "$HOME/github/KvFlat-Emerald/KvFlat-Emerald-Solid" "$HOME/.config/Kvantum"
 
 Now open <code>lxappearance</code> & Kvantum, set themes and configure fonts (<code>lxappearance</code>).
 
@@ -356,7 +343,7 @@ You can install any icon theme that you want, as long it includes a <code>void-d
 	
 	git -C "$HOME/github" clone https://github.com/yeyushengfan258/Reversal-icon-theme
 	cd "$HOME/github/Reversal-icon-theme"
-	sudo ./install.sh -a
+	sudo ./install.sh -green
 	
 Now apply the icon theme at <code>lxappearance</code> and Qt5ct.
 
