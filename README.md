@@ -160,11 +160,7 @@ Once created, we'll setup autostart commands and applications (yeah, I used <cod
     nm-applet &
     picom &
     numlockx &
-    
-    # In Void use octoxbps-notifier and in Artix, /usr/bin/octopi-notifier.
-    octoxbps-notifier &
-    # /usr/bin/octopi-notifier &
-    
+    /usr/libexec/polkit-mate-authentication-agent-1 &
     xscreensaver -nosplash &
     xfce4-panel &
     nemo-desktop &
@@ -172,6 +168,11 @@ Once created, we'll setup autostart commands and applications (yeah, I used <cod
     /usr/libexec/notification-daemon &
     xautolock -detectsleep -time 5 -locker "betterlockscreen -l blur -w /path/to/your/wallpaper.png" -killtime 10 -killer "loginctl suspend"
     blueman-applet &!
+    
+    
+    # In Void use octoxbps-notifier and in Artix, /usr/bin/octopi-notifier.
+    octoxbps-notifier &
+    # /usr/bin/octopi-notifier &
     
 Change <code>/path/to/your/wallpaper.png</code> by the path of your desired background for lockscreen. In this build, a wallpaper is included into resources folder.
 
@@ -190,7 +191,7 @@ Now we can configure our keybindings:
 
     #Volume Control
     XF86Audio{RaiseVolume,LowerVolume}
-        pactl -- set-sink-volume 0 {+5%,-5%}
+        pactl -- set-sink-volume @DEFAULT_SINK@ 0 {+5%,-5%}
 
     #Mute button
     XF86AudioMute
@@ -219,6 +220,11 @@ Now we can configure our keybindings:
     #Lockscreen
     ctrl + alt + l
         betterlockscreen -l blur -w /path/to/your/wallpaper.png
+	
+     #Rofi
+     ctrl + space
+     	$HOME/.config/rofi/launcher.sh
+	
         
 <code>brillo</code> also needs elevated privileges to be able to change brightness, and also we'll add an exception for it. You can make writable the <code>brightness</code> file of your GPU (like as I did), in order to do it without superuser privileges, but I don't know what other consequences it can have.
 
@@ -233,7 +239,7 @@ And now setup the preferences:
     ShowTaskBar=0
     RebootCommand="loginctl reboot"
     ShutdownCommand="loginctl poweroff"
-    TerminalCommand=tilix
+    TerminalCommand=sakura
     SuspendCommand="loginctl suspend"
 
 If you don't want to use XFCE's panel, set <code>ShowTaskBar</code> on <code>1</code>, and remove it from autostart.
