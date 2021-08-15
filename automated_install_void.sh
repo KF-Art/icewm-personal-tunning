@@ -199,10 +199,16 @@ echo ""
 # Optionally you can remove the repository from github in case you are no longer going to use them
 #rm -rf $HOME/github
 rm -rf $INSTALL
+
 echo "Completed."
 echo ""
 echo "Congratulations! You have installed a tuned IceWM!"
-echo "Now you can use startx to begin enjoy your new environment."
+echo "To finish, we'll enable LXDM's service. Enjoy it!"
+
+echo ""
+echo "Enabling LXDM service..."
+echo ""
+sudo ln -sf /etc/sv/lxdm /var/service
 
 
 
