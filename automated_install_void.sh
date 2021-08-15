@@ -9,11 +9,11 @@ echo "Enjoy!"
 echo ""
 echo "Installing IceWM and initial tools..."
 
-sudo xbps-install -Sfy icewm ulauncher network-manager-applet tilix pa-applet brillo nemo qt5ct \
-	zsh kvantum bsdtar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin \
-	xfce4-power-manager xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl \
-	numlockx compton xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox \
-	pavucontrol git wget gedit eudev timeshift cronie xinit bluez dbus zzz-user-hooks
+sudo xbps-install -Sfy icewm rofi network-manager-applet sakura pa-applet brillo nemo qt5ct \
+	kvantum bsdtar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin \
+	xfce4-power-manager unzip zip bsdtar xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl \
+	numlockx picom xscreensaver setxkbmap xautolock blueman NetworkManager pulseaudio firefox \
+	pavucontrol git wget gedit eudev timeshift cronie lxdm bluez dbus elogind libelogind
 
 echo "Enabling services..."
 
@@ -134,7 +134,7 @@ sudo bsdtar -xvf resources/StarLabs-Green.tar.gz -C /usr/share/themes
 echo "Installing Reversal icon theme..."
 git -C "$HOME/github" clone https://github.com/yeyushengfan258/Reversal-icon-theme
 cd "$HOME/github/Reversal-icon-theme"
-sudo ./install.sh -a
+sudo ./install.sh -green
 
 echo "Caching betterlockscreen background..."
 echo ""
@@ -158,18 +158,9 @@ else
 	cp dotfiles/qt5ct/qt5ct.conf "$HOME/.config/qt5ct/"
 fi
 
-echo "Copying uLauncher configurations..."
-echo ""
-cp -r dotfiles/ulauncher "$HOME/.config"
-
 echo "Copying XFCE's panel configurations..."
 echo ""
 cp -r dotfiles/xfce4 "$HOME/.config/"
-
-echo ""
-echo "Configuring Tilix..."
-dconf load /com/gexperts/Tilix/ < resources/tilixrc
-echo ""
 
 echo "Copying .xinitrc..."
 cp dotfiles/xinitrc/.xinitrc "$HOME/"
@@ -197,11 +188,10 @@ cat resources/shell_variables | tee -a "$HOME/.bashrc"
 
 echo ""
 echo "Adding sudo exceptions to use brillo..."
-sudo groupadd brillo
 sudo usermod -aG brillo "$USER"
-echo '%brillo ALL=(ALL) NOPASSWD: /usr/bin/brillo /usr/bin/zzz' | sudo EDITOR='tee -a' visudo
+echo "$USER $(cat /etc/hostname)= NOPASSWD: /usr/bin/brillo" | sudo EDITOR='tee -a' visudo
 echo ""
-echo "If you will use another user in the future, you need to add them to brillo group."
+echo "If you will use another user in the future, you need to allow them to run brillo with root privileges via visudo."
 echo ""
 
 echo "Deleting install files to save space..."
