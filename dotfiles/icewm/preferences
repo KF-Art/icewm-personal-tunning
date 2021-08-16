@@ -2,5 +2,5 @@ TaskBarShowWorkspaces=0
 ShowTaskBar=0
 RebootCommand="loginctl reboot"
 ShutdownCommand="loginctl poweroff"
-TerminalCommand=tilix
-SuspendCommand="sudo zzz -z"
+TerminalCommand=sakura
+SuspendCommand="loginctl suspend"
