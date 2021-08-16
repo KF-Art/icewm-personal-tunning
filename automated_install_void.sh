@@ -182,6 +182,8 @@ if [ ! -d "$HOME/.config/rofi" ]; then
 else
 	cp dotfiles/rofi/* "$HOME/.config/rofi/"
 fi
+echo "Making Rofi launcher script executable..."
+chmod u+x $HOME/.config/rofi/launcher.sh
 
 # Add lines to ~/.bashrc
 echo ""
