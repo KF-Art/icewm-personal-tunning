@@ -175,6 +175,14 @@ echo "Copying Kvantum configuration file..."
 cp dotfiles/Kvantum/kvantum.kvconfig "$HOME/.config/Kvantum/"
 echo ""
 
+echo "Copying Rofi configuration files..."
+if [ ! -d "$HOME/.config/rofi" ]; then
+	mkdir "$HOME/.config/rofi"
+	cp dotfiles/rofi/* "$HOME/.config/rofi/"
+else
+	cp dotfiles/rofi/* "$HOME/.config/rofi/"
+fi
+
 # Add lines to ~/.bashrc
 echo ""
 echo "Adding custom Bash prompt..."
@@ -192,7 +200,6 @@ cat resources/shell_variables | tee -a "$HOME/.bashrc"
 
 echo ""
 echo "Adding sudo exceptions to use brillo..."
-sudo usermod -aG brillo "$USER"
 echo "$USER $(cat /etc/hostname)= NOPASSWD: /usr/bin/brillo" | sudo EDITOR='tee -a' visudo
 echo ""
 echo "If you will use another user in the future, you need to allow them to run brillo with root privileges via visudo."
