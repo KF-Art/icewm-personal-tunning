@@ -48,7 +48,7 @@ This guide is focused on Void Linux and Artix Linux. Feel free to add or remove 
 
 - Add a Display Manager in order to get Polkit working correctly.
 - Correct some guide content.
-- Replace XFCE tools.
+- Replace XFCE tools (for example <code>xfce4-panel</code> by <code>tint2</code>).
 - Make wallpaper to work properly with Nemo Desktop (Artix only).
 - Make automated script to detect signature error on package download and then, abort the installation.
 - Fix Artix script (currently it's broken).
