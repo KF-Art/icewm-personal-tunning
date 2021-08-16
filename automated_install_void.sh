@@ -9,6 +9,10 @@ echo "Enjoy!"
 echo ""
 echo "Installing IceWM and initial tools..."
 
+# Update system to avoid errors when installing packages.
+sudo xbps-install -Syu
+
+# Install necessary tools.
 sudo xbps-install -Sfy icewm rofi network-manager-applet sakura pa-applet brillo nemo qt5ct \
 	kvantum bsdtar betterlockscreen sxhkd clementine xfce4-panel xfce4-whiskermenu-plugin \
 	xfce4-power-manager unzip zip bsdtar xfce4-clipman-plugin mate-polkit octoxbps notification-daemon playerctl \
