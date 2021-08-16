@@ -33,3 +33,7 @@ ctrl + alt + q
 #Lockscreen
 ctrl + alt + l
     betterlockscreen -l blur -w ~/.config/betterlockscreen/pexels-eberhard-grossgasteiger-640781.jpg
+    
+#Rofi
+ctrl + space
+    $HOME/.config/rofi/launcher.sh
