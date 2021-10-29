@@ -344,7 +344,7 @@ We need to clone the font repo, move fonts to <code>/usr/share/fonts/OTF</code>,
 	mkdir /tmp/JetBrains-Mono && cd /tmp/JetBrains-Mono
 	wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip
 	unzip JetBrainsMono-2.242.zip
-	sudo cp fonts /usr/share
+	sudo cp -r fonts /usr/share
 	
 	#Update font cache and list
 	fc-cache -fv; fc-list
